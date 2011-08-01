@@ -4,6 +4,9 @@
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name='com.calclab.emite.core.EmiteCore' />
 	<inherits name="com.calclab.emite.suco.EmiteSuco" />
+
+	<!-- TODO: Move emoticons into com.calclab.hablar.chat.ui -->
+	<inherits name='com.calclab.hablar.chat.HablarChat' />
 	<inherits name="com.allen_sauer.gwt.log.gwt-log-OFF" />
 
 	<replace-with
