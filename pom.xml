@@ -7,7 +7,7 @@
 	<groupId>com.calclab</groupId>
 	<artifactId>hablar</artifactId>
 	<packaging>war</packaging>
-	<version>0.7-SNAPSHOT</version>
+	<version>surevine-1.7.3</version>
 	<name>Hablar</name>
 
 	<properties>
@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>com.calclab</groupId>
 			<artifactId>emite</artifactId>
-			<version>0.7-SNAPSHOT</version>
+			<version>surevine-1.7.3</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
