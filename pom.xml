@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>com.calclab</groupId>
 			<artifactId>emite</artifactId>
-			<version>0.7-SNAPSHOT</version>
+			<version>0.7-ashward-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
