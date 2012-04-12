@@ -48,6 +48,13 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.calclab</groupId>
+			<artifactId>emite</artifactId>
+			<classifier>tests</classifier>
+			<version>0.7-ashward-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.2</version>
