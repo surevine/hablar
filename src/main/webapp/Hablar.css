@@ -110,7 +110,7 @@ input[disabled] {
 }
 
 .hablar-Header.unattended.blinkOn {
-	color: #000000;
+	color: highlighttext;
 	background-color: highlight;
 }
 
