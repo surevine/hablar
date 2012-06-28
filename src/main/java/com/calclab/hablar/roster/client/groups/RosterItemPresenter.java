@@ -4,6 +4,7 @@ import com.calclab.emite.core.client.xmpp.stanzas.Presence.Show;
 import com.calclab.emite.im.client.roster.RosterItem;
 import com.calclab.hablar.core.client.mvp.Presenter;
 import com.calclab.hablar.core.client.ui.menu.Menu;
+import com.calclab.hablar.icons.client.AvatarConfig;
 import com.calclab.hablar.icons.client.PresenceIcon;
 import com.calclab.hablar.roster.client.RosterConfig;
 import com.google.gwt.dom.client.Element;
@@ -13,6 +14,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 public class RosterItemPresenter implements Presenter<RosterItemDisplay> {
 
 	private final RosterItemDisplay display;
+	private AvatarConfig avatarConfig;
 	private RosterItem item;
 	private final String groupName;
 	private String clickActionDescription;
@@ -27,6 +29,7 @@ public class RosterItemPresenter implements Presenter<RosterItemDisplay> {
 			final RosterConfig rosterConfig) {
 		this.groupName = groupName;
 		this.display = display;
+		this.avatarConfig = rosterConfig.avatarConfig;
 
 		this.clickActionDescription = "";
 		if (rosterConfig.rosterItemClickAction != null) {
@@ -123,6 +126,7 @@ public class RosterItemPresenter implements Presenter<RosterItemDisplay> {
 			final String title = clickActionDescription + name + " (" + jidString + ")";
 			display.setWidgetTitle(title);
 			// display.setColor(ColorHelper.getColor(item.getJID()));
+			display.setAvatar(avatarConfig.getUrl(item.getJID()));
 		}
 
 		return hasChanged;

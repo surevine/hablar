@@ -28,7 +28,7 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 	Label name, jid, status;
 
 	@UiField
-	Image menu, icon;
+	Image menu, icon, avatar;
 
 	private static RosterItemWidgetUiBinder uiBinder = GWT.create(RosterItemWidgetUiBinder.class);
 
@@ -85,6 +85,11 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 	@Override
 	public void setIcon(final ImageResource imageResource) {
 		icon.setResource(imageResource);
+	}
+	
+	@Override
+	public void setAvatar(final String url) {
+		avatar.setUrl(url);
 	}
 
 	@Override

@@ -6,7 +6,6 @@
 	<ui:style>
 		.item {
 			position: relative;
-			padding: 3px 0;
 		}
 		
 		.status {
@@ -14,6 +13,14 @@
 			margin: 0 0 0 25px;
 			padding: 2px 0;
 			clear: both;
+		}
+		
+		.avatar {
+			margin-top: -4px !important;
+			margin-left: -4px !important;
+			margin-bottom: 0px !important;
+			width: 24px;
+			height: 24px;
 		}
 		
 		.name {
@@ -36,7 +43,7 @@
 		}
 		
 		.data {
-			padding-left: 45px;
+			padding-left: 65px;
 			width: auto;
 			white-space: nowrap;
 		}
@@ -48,6 +55,8 @@
 				class="hablar-RosterItemWidget hablar-ListItem hablar-bottomLightBordered {style.item}">
 				<g:Image resource="{res.missingIcon}" addStyleNames="icon"
 					ui:field="icon" />
+				<g:Image url="" addStyleNames="icon {style.avatar}"
+					ui:field="avatar" />
 				<g:Image resource="{res.menuIcon}" ui:field="menu"
 					addStyleNames="menu" />
 				<div class="{style.dataOuter}">

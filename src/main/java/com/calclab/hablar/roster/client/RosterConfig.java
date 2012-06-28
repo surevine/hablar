@@ -3,6 +3,8 @@ package com.calclab.hablar.roster.client;
 import com.calclab.emite.browser.client.PageAssist;
 import com.calclab.emite.im.client.roster.RosterItem;
 import com.calclab.hablar.core.client.ui.menu.SimpleAction;
+import com.calclab.hablar.icons.client.AvatarConfig;
+import com.calclab.hablar.icons.client.AvatarIcon;
 
 public class RosterConfig {
 	public static RosterConfig getFromMeta() {
@@ -25,4 +27,9 @@ public class RosterConfig {
 	 * The actions for the roster menu
 	 */
 	public RosterBasicActions rosterMenuActions;
+	
+	/**
+	 * Configuration for retrieving avatars.
+	 */
+	public AvatarConfig avatarConfig = new AvatarIcon();
 }
