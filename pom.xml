@@ -12,18 +12,30 @@
 
 	<properties>
 		<!-- Convenience property to set the GWT version -->
-		<gwt.version>2.3.0</gwt.version>
+		<gwt.version>2.4.0</gwt.version>
 		<!-- GWT 2.2 needs java 1.6 -->
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- TODO: Fix tests! -->
-		<maven.test.skip>true</maven.test.skip>
+		<!-- <maven.test.skip>true</maven.test.skip> -->
 		<emite.version>${project.version}</emite.version>
 	</properties>
-
+	<repositories>
+		<repository>
+			<id>tigase</id>
+			<name>Tigase</name>
+			<url>http://maven.tigase.org/</url>
+		</repository>
+	</repositories>
 	<dependencies>
+		<dependency>
+			<groupId>tigase</groupId>
+			<artifactId>tigase-xmltools</artifactId>
+			<version>3.3.5</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
@@ -69,8 +81,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium</artifactId>
-			<version>2.0b2</version>
+			<artifactId>selenium-java</artifactId>
+			<version>2.24.1</version>
 			<type>pom</type>
 			<scope>test</scope>
 		</dependency>
@@ -78,6 +90,12 @@
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>6.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwt.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -95,26 +113,58 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
-			
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12</version>
+				<configuration>
+					<parallel>methods</parallel>
+					<threadCount>10</threadCount>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit47</artifactId>
+						<version>2.12</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-failsafe-plugin</artifactId> -->
+			<!-- <version>2.12</version> -->
+			<!-- <configuration> -->
+			<!-- <includes> -->
+			<!-- <include>**/selenium/**</include> -->
+			<!-- </includes> -->
+			<!-- <classpathDependencyExcludes> -->
+			<!-- <classpathDependencyExcludes>com.google.gwt:gwt-dev</classpathDependencyExcludes> -->
+			<!-- </classpathDependencyExcludes> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+
 			<!-- GWT Maven Plugin -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwt.version}-1</version>
+				<version>${gwt.version}</version>
 				<executions>
 					<execution>
+						<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+							documentation at codehaus.org -->
+						<configuration>
+							<module>com.calclab.hablar.html.HablarHtml</module>
+							<runTarget>Hablar.html</runTarget>
+							<hostedWebapp>${webappDirectory}</hostedWebapp>
+							<force>true</force>
+						</configuration>
 						<goals>
 							<goal>compile</goal>
-							<goal>test</goal>
 						</goals>
 					</execution>
 				</executions>
-				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
-					documentation at codehaus.org -->
-				<configuration>
-					<runTarget>Hablar.html</runTarget>
-					<hostedWebapp>${webappDirectory}</hostedWebapp>
-				</configuration>
 			</plugin>
 
 			<!-- Copy static web files before executing gwt:run -->
@@ -135,7 +185,7 @@
 					<attachClasses>true</attachClasses>
 				</configuration>
 			</plugin>
-			
+
 			<!-- Tell the jar plugin to also create a jar of all the test classes -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -151,7 +201,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- Also create the source jar files -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -171,7 +221,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

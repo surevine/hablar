@@ -3,7 +3,7 @@ package com.calclab.hablar.selenium.groupchat;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.calclab.hablar.rooms.client.RoomsMessages;
+import com.calclab.hablar.rooms.client.RoomMessages;
 import com.calclab.hablar.selenium.HablarSeleniumTest;
 import com.calclab.hablar.selenium.tools.I18nHelper;
 
@@ -12,7 +12,7 @@ public class GroupChatSeleniumTests extends HablarSeleniumTest {
 
     @BeforeClass
     public void beforeClass() {
-	i18n = new I18nHelper(RoomsMessages.class);
+	i18n = new I18nHelper(RoomMessages.class);
     }
 
     @Test

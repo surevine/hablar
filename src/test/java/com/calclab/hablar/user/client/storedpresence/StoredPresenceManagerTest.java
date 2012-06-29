@@ -1,10 +1,14 @@
 package com.calclab.hablar.user.client.storedpresence;
 
+import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.calclab.emite.core.client.xmpp.stanzas.Presence.Show;
 import com.calclab.emite.xep.storage.client.PrivateStorageManager;
+import com.calclab.emite.xep.storage.client.events.PrivateStorageResponseEvent;
+import com.calclab.emite.xep.storage.client.events.PrivateStorageResponseHandler;
 import com.calclab.emite.xtesting.XmppSessionTester;
 
 public class StoredPresenceManagerTest {
@@ -23,12 +27,15 @@ public class StoredPresenceManagerTest {
 
     @Test
     public void shouldAddOnce() {
-	final MockedListener<IQResponse> listener = new MockedListener<IQResponse>();
+    
+    final PrivateStorageResponseHandler listener = Mockito.mock(PrivateStorageResponseHandler.class);
+	
 	manager.add(new StoredPresence("Sleeping...", Show.away), listener);
 	session.answer(SUCCESS_RESULT);
 	manager.add(new StoredPresence("Sleeping...", Show.away), listener);
 	manager.get(listener);
 	session.answer(RETRIEVED);
-	listener.isCalledOnce();
+	
+	verify(listener,times(1)).onStorageResponse(any(PrivateStorageResponseEvent.class));
     }
 }

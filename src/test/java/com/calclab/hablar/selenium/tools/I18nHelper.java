@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.i18n.client.Messages;
+import com.google.gwt.i18n.client.Messages.AlternateMessage;
 import com.google.gwt.i18n.client.Messages.DefaultMessage;
-import com.google.gwt.i18n.client.Messages.PluralText;
 
 public class I18nHelper {
 
@@ -44,7 +44,7 @@ public class I18nHelper {
     }
 
     private static String getPlural(final Method method, final int value, final String def) {
-	final PluralText pluralText = method.getAnnotation(PluralText.class);
+	final AlternateMessage pluralText = method.getAnnotation(AlternateMessage.class);
 	if (pluralText != null) {
 	    final Map<String, String> pluralMap = new HashMap<String, String>();
 	    final String[] pluralForms = pluralText.value();

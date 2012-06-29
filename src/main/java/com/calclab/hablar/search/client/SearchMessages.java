@@ -23,7 +23,7 @@ public interface SearchMessages extends Messages {
 	@Description("Results for a users search")
 	@DefaultMessage("Results for «{0}»: {1} users found.")
 	@AlternateMessage({ "one", "Results for «{0}»: One user found." })
-	String searchResultsFor(String term, @PluralCount @Optional int count);
+	String searchResultsFor(String term, @PluralCount int count);
 
 	@DefaultMessage("Search users")
 	String searchUsers();

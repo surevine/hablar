@@ -1,6 +1,6 @@
 package com.calclab.hablar.selenium.roster;
 
-import org.openqa.selenium.RenderedWebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ByIdOrName;
 import org.openqa.selenium.support.FindBy;
@@ -11,111 +11,111 @@ import com.calclab.hablar.selenium.PageObject;
 public class RosterPageObject extends PageObject {
 
     @FindBy(id = "gwt-debug-RosterWidget-disabledPanel")
-    private RenderedWebElement disabledLabel;
+    private WebElement disabledLabel;
 
     @FindBy(id = "gwt-debug-HeaderWidget-Roster-1")
-    private RenderedWebElement header;
+    private WebElement header;
 
     @FindBy(id = "gwt-debug-HablarGroupChat-openGroupChatAction")
-    private RenderedWebElement openGroupChat;
+    private WebElement openGroupChat;
 
     @FindBy(id = "gwt-debug-HablarRoster-removeFromGroupAction")
-    private RenderedWebElement removeFromGroupAction;
+    private WebElement removeFromGroupAction;
 
     @FindBy(id = "gwt-debug-HablarRoster-removeFromRosterAction")
-    private RenderedWebElement removeBuddyAction;
+    private WebElement removeBuddyAction;
 
     @FindBy(id = "gwt-debug-HablarRoster-manageGroupsAction")
-    private RenderedWebElement manageGroupsAction;
+    private WebElement manageGroupsAction;
 
     @FindBy(id = "gwt-debug-EditBuddy-editAction")
-    private RenderedWebElement editBuddyAction;
+    private WebElement editBuddyAction;
 
     @FindBy(id = "gwt-debug-HablarVCard-seeVCardAction")
-    private RenderedWebElement seeBuddyVCardAction;
+    private WebElement seeBuddyVCardAction;
 
     @FindBy(id = "gwt-debug-ManageGroupsWidget-accept")
-    private RenderedWebElement manageGroupsAccept;
+    private WebElement manageGroupsAccept;
 
     @FindBy(id = "gwt-debug-HablarRoster-deleteGroupAction")
-    private RenderedWebElement deleteGroupAction;
+    private WebElement deleteGroupAction;
 
     @FindBy(id = "gwt-debug-ManageGroupsWidget-newGroup")
-    private RenderedWebElement createNewGroupButton;
+    private WebElement createNewGroupButton;
 
     @FindBy(id = "gwt-debug-GroupSelectorWidget-editableName")
-    private RenderedWebElement newGroupField;
+    private WebElement newGroupField;
 
     public RosterPageObject(final WebDriver webdriver) {
 	super(webdriver);
     }
 
-    public RenderedWebElement getCreateNewGroupButton() {
+    public WebElement getCreateNewGroupButton() {
 	return createNewGroupButton;
     }
 
-    public RenderedWebElement getDeleteGroupAction() {
+    public WebElement getDeleteGroupAction() {
 	return deleteGroupAction;
     }
 
-    public RenderedWebElement getDisableLabel() {
+    public WebElement getDisableLabel() {
 	return disabledLabel;
     }
 
-    public RenderedWebElement getEditBuddyAction() {
+    public WebElement getEditBuddyAction() {
 	return editBuddyAction;
     }
 
-    public RenderedWebElement getGroup(final String groupId) {
+    public WebElement getGroup(final String groupId) {
 	final String id = Idify.id("GroupHeaderWidget-name", groupId);
 	return findElement(new ByIdOrName("gwt-debug-" + id));
     }
 
-    public RenderedWebElement getGroupMenu(final String groupId) {
+    public WebElement getGroupMenu(final String groupId) {
 	System.out.println("Roster - getGroupMenu : " + groupId);
 	final String id = Idify.id("GroupHeaderWidget-menu", groupId);
 	return findElement(new ByIdOrName("gwt-debug-" + id));
     }
 
-    public RenderedWebElement getHeader() {
+    public WebElement getHeader() {
 	return header;
     }
 
-    public RenderedWebElement getItemMenu(final String groupId, final String jid) {
+    public WebElement getItemMenu(final String groupId, final String jid) {
 	final String id = Idify.id("RosterItemWidget", groupId, Idify.uriId(jid), "roster-menu");
 	return findElement(new ByIdOrName("gwt-debug-" + id));
     }
 
-    public RenderedWebElement getManageGroupsAccept() {
+    public WebElement getManageGroupsAccept() {
 	return manageGroupsAccept;
     }
 
-    public RenderedWebElement getManageGroupsAction() {
+    public WebElement getManageGroupsAction() {
 	return manageGroupsAction;
     }
 
-    public RenderedWebElement getNewGroupField() {
+    public WebElement getNewGroupField() {
 	return newGroupField;
     }
 
-    public RenderedWebElement getOpenGroupChat() {
+    public WebElement getOpenGroupChat() {
 	return openGroupChat;
     }
 
-    public RenderedWebElement getRemoveBuddyAction() {
+    public WebElement getRemoveBuddyAction() {
 	return removeBuddyAction;
     }
 
-    public RenderedWebElement getRemoveFromGroupAction() {
+    public WebElement getRemoveFromGroupAction() {
 	return removeFromGroupAction;
     }
 
-    public RenderedWebElement getRosterItem(final String groupId, final String jid) {
+    public WebElement getRosterItem(final String groupId, final String jid) {
 	final String id = Idify.id("RosterItemWidget", groupId, Idify.uriId(jid));
 	return findElement(new ByIdOrName("gwt-debug-" + id));
     }
 
-    public RenderedWebElement getSeeBuddyVCardAction() {
+    public WebElement getSeeBuddyVCardAction() {
 	return seeBuddyVCardAction;
     }
 

@@ -60,8 +60,8 @@ public class HablarSeleniumDefaults {
 		{ "test1@localhost", "test" }, { "", "" } };
     }
 
-    public void moveMouseAt(final Point point) {
-	webtester.moveMouseAt(point);
+    public void moveMouseAt(final int x, final int y) {
+	webtester.moveMouseAt(x, y);
     }
 
     @BeforeMethod

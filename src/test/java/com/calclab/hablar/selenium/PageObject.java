@@ -1,7 +1,7 @@
 package com.calclab.hablar.selenium;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.RenderedWebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ByIdOrName;
@@ -16,15 +16,15 @@ public abstract class PageObject {
 	this.webDriver = webDriver;
     }
 
-    protected RenderedWebElement findElement(final By by) {
-	return (RenderedWebElement) getWebDriver().findElement(by);
+    protected WebElement findElement(final By by) {
+	return (WebElement) getWebDriver().findElement(by);
     }
 
     private WebDriver getWebDriver() {
 	return webDriver;
     }
 
-    public void waitFor(final RenderedWebElement element) {
+    public void waitFor(final WebElement element) {
 	final String id = element.getAttribute("id");
 	System.out.println("WAIT FOR: " + id);
 	waitFor(id, new Runnable() {
@@ -86,7 +86,7 @@ public abstract class PageObject {
 	waitFor(id, new Runnable() {
 	    @Override
 	    public void run() {
-		Assert.assertTrue(((RenderedWebElement) getWebDriver().findElement(new ByIdOrName(id))).isDisplayed());
+		Assert.assertTrue(((WebElement) getWebDriver().findElement(new ByIdOrName(id))).isDisplayed());
 	    }
 	});
     }
@@ -96,7 +96,7 @@ public abstract class PageObject {
 	waitFor(text, new Runnable() {
 	    @Override
 	    public void run() {
-		final String elValue = element.getValue();
+		final String elValue = element.getAttribute("value");
 		System.out.println("Element value: " + elValue);
 		Assert.assertTrue(elValue.contains(text));
 	    }

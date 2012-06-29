@@ -1,6 +1,6 @@
 package com.calclab.hablar.selenium.userpage;
 
-import org.openqa.selenium.RenderedWebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -10,119 +10,119 @@ import com.calclab.hablar.selenium.vcard.VCardPageObject;
 public class UserPageObject extends PageObject implements VCardPageObject {
 
     @FindBy(id = "gwt-debug-HeaderWidget-User-1")
-    private RenderedWebElement header;
+    private WebElement header;
 
     @FindBy(id = "gwt-debug-PresenceWidget-status")
-    private RenderedWebElement status;
+    private WebElement status;
 
     @FindBy(id = "gwt-debug-PresenceWidget-menu")
-    private RenderedWebElement menu;
+    private WebElement menu;
 
     @FindBy(id = "gwt-debug-SignalsPreferencesWidget-titleSignals-input")
-    private RenderedWebElement titleSignals;
+    private WebElement titleSignals;
 
     @FindBy(id = "gwt-debug-SignalsPreferencesWidget-incomingNotifications-input")
-    private RenderedWebElement incomingNotifications;
+    private WebElement incomingNotifications;
 
     @FindBy(id = "gwt-debug-SignalsPreferencesWidget-rosterNotifications-input")
-    private RenderedWebElement rosterNotifications;
+    private WebElement rosterNotifications;
 
     @FindBy(id = "gwt-debug-UserWidget-close")
-    private RenderedWebElement close;
+    private WebElement close;
 
     @FindBy(id = "gwt-debug-OwnVCardWidget-name")
-    private RenderedWebElement name;
+    private WebElement name;
 
     @FindBy(id = "gwt-debug-OwnVCardWidget-nickName")
-    private RenderedWebElement nickName;
+    private WebElement nickName;
 
     @FindBy(id = "gwt-debug-OwnVCardWidget-familyName")
-    private RenderedWebElement familyName;
+    private WebElement familyName;
 
     @FindBy(id = "gwt-debug-OwnVCardWidget-givenName")
-    private RenderedWebElement givenName;
+    private WebElement givenName;
 
     @FindBy(id = "gwt-debug-OwnVCardWidget-middleName")
-    private RenderedWebElement middleName;
+    private WebElement middleName;
 
     @FindBy(id = "gwt-debug-OwnVCardWidget-organizationName")
-    private RenderedWebElement organizationName;
+    private WebElement organizationName;
 
     @FindBy(id = "gwt-debug-OwnVCardWidget-email")
-    private RenderedWebElement email;
+    private WebElement email;
 
     @FindBy(id = "gwt-debug-OwnVCardWidget-homepage")
-    private RenderedWebElement homepage;
+    private WebElement homepage;
 
     public UserPageObject(final WebDriver webdriver) {
 	super(webdriver);
     }
 
-    public RenderedWebElement getClose() {
+    public WebElement getClose() {
 	return close;
     }
 
     @Override
-    public RenderedWebElement getEmail() {
+    public WebElement getEmail() {
 	return email;
     }
 
     @Override
-    public RenderedWebElement getFamilyName() {
+    public WebElement getFamilyName() {
 	return familyName;
     }
 
     @Override
-    public RenderedWebElement getGivenName() {
+    public WebElement getGivenName() {
 	return givenName;
     }
 
-    public RenderedWebElement getHeader() {
+    public WebElement getHeader() {
 	return header;
     }
 
     @Override
-    public RenderedWebElement getHomepage() {
+    public WebElement getHomepage() {
 	return homepage;
     }
 
-    public RenderedWebElement getIncomingNotifications() {
+    public WebElement getIncomingNotifications() {
 	return incomingNotifications;
     }
 
-    public RenderedWebElement getMenu() {
+    public WebElement getMenu() {
 	return menu;
     }
 
     @Override
-    public RenderedWebElement getMiddleName() {
+    public WebElement getMiddleName() {
 	return middleName;
     }
 
     @Override
-    public RenderedWebElement getName() {
+    public WebElement getName() {
 	return name;
     }
 
     @Override
-    public RenderedWebElement getNickName() {
+    public WebElement getNickName() {
 	return nickName;
     }
 
     @Override
-    public RenderedWebElement getOrganizationName() {
+    public WebElement getOrganizationName() {
 	return organizationName;
     }
 
-    public RenderedWebElement getRosterNotifications() {
+    public WebElement getRosterNotifications() {
 	return rosterNotifications;
     }
 
-    public RenderedWebElement getStatus() {
+    public WebElement getStatus() {
 	return status;
     }
 
-    public RenderedWebElement getTitleSignals() {
+    public WebElement getTitleSignals() {
 	return titleSignals;
     }
 

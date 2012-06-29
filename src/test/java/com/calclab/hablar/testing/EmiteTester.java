@@ -15,18 +15,16 @@ public class EmiteTester {
     private static DisplayStubFactory factory = DisplayStubFactory.instance;
     public final XmppSessionTester session;
     public final ChatManagerTester chatManager;
-    public final RosterTester roster;
     public final SearchManagerTester searchManager;
     public final PresenceManagerTester presenceManager;
     public final DefaultEventBus eventBus;
-    public final XmppRosterLogic xmppRoster;
+    public final XmppRosterLogic roster;
 
     public EmiteTester() {
 	eventBus = new DefaultEventBus();
 	session = new XmppSessionTester();
 	chatManager = new ChatManagerTester(session);
-	xmppRoster = new XmppRosterLogic(session);
-	roster = new RosterTester(xmppRoster);
+	roster = new XmppRosterLogic(session);
 	searchManager = new SearchManagerTester();
 	presenceManager = new PresenceManagerTester(session);
     }
