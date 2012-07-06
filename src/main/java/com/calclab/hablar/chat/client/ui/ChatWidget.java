@@ -34,7 +34,7 @@ public class ChatWidget extends Composite implements ChatDisplay {
 
 	private static final int CONTROLS_HEIGHT = 92;
 
-	private static final int STATUS_HEIGHT = 24;
+	private static final int STATUS_HEIGHT = 6;
 
 	private static ChatWidgetUiBinder uiBinder = GWT.create(ChatWidgetUiBinder.class);
 
@@ -43,7 +43,7 @@ public class ChatWidget extends Composite implements ChatDisplay {
 	@UiField
 	protected LayoutPanel page;
 	@UiField
-	protected FlowPanel list, controls, actions;
+	protected FlowPanel list, controls, actions, avatars;
 	@UiField
 	protected ScrollPanel scroll;
 	@UiField
@@ -58,6 +58,7 @@ public class ChatWidget extends Composite implements ChatDisplay {
 	public ChatWidget(final boolean sendButtonVisible) {
 		initWidget(uiBinder.createAndBindUi(this));
 		controlsHeight = 0;
+		state.setVisible(false);
 	}
 
 	@Override
@@ -138,7 +139,7 @@ public class ChatWidget extends Composite implements ChatDisplay {
 
 	@Override
 	public void setStatusVisible(final boolean visible) {
-		state.setVisible(visible);
+//		state.setVisible(visible);
 	}
 
 	@Override
@@ -152,7 +153,7 @@ public class ChatWidget extends Composite implements ChatDisplay {
 	}
 
 	private void layoutControls() {
-		page.setWidgetTopBottom(scroll, STATUS_HEIGHT + 3, PX, controlsHeight + STATUS_HEIGHT + 3, PX);
+		page.setWidgetTopBottom(scroll, 28, PX, controlsHeight + STATUS_HEIGHT + 3, PX);
 		page.setWidgetBottomHeight(state, controlsHeight, PX, STATUS_HEIGHT, PX);
 		page.setWidgetBottomHeight(controls, 3, PX, controlsHeight + 3, PX);
 	}

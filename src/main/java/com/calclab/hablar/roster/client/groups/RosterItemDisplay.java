@@ -28,4 +28,6 @@ public interface RosterItemDisplay extends Display {
 	void setStatusVisible(boolean visible);
 
 	void setWidgetTitle(String title);
+
+	void setAvatar(String url);
 }
