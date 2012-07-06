@@ -126,7 +126,10 @@ public class RosterItemPresenter implements Presenter<RosterItemDisplay> {
 			final String title = clickActionDescription + name + " (" + jidString + ")";
 			display.setWidgetTitle(title);
 			// display.setColor(ColorHelper.getColor(item.getJID()));
-			display.setAvatar(avatarConfig.getUrl(item.getJID()));
+			
+			if (avatarConfig != null) {
+				display.setAvatar(avatarConfig.getUrl(item.getJID()));
+			}
 		}
 
 		return hasChanged;

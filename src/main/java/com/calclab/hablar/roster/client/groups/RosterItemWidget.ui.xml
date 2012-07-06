@@ -43,7 +43,7 @@
 		}
 		
 		.data {
-			padding-left: 65px;
+			padding-left: 45px;
 			width: auto;
 			white-space: nowrap;
 		}
@@ -55,11 +55,10 @@
 				class="hablar-RosterItemWidget hablar-ListItem hablar-bottomLightBordered {style.item}">
 				<g:Image resource="{res.missingIcon}" addStyleNames="icon"
 					ui:field="icon" />
-				<g:Image url="" addStyleNames="icon {style.avatar}"
-					ui:field="avatar" />
 				<g:Image resource="{res.menuIcon}" ui:field="menu"
 					addStyleNames="menu" />
-				<div class="{style.dataOuter}">
+				<g:Image url="" ui:field="avatar" addStyleNames="icon {style.avatar}"/>
+				<div class="{style.dataOuter}" ui:field="dataOuter">
 					<div class="{style.data} ellipsis">
 						<g:Label addStyleNames="{style.name} name" ui:field="name">name-here</g:Label>
 						<g:Label addStyleNames="{style.jid} hablar-lightColor"

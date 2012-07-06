@@ -6,6 +6,7 @@ import com.calclab.hablar.core.client.HablarDisplay;
 import com.calclab.hablar.core.client.pages.tabs.TabsLayout;
 import com.calclab.hablar.core.client.pages.tabs.TabsLayout.TabHeaderSize;
 import com.calclab.hablar.dock.client.DockConfig;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.rooms.client.HablarRoomsConfig;
 import com.calclab.hablar.roster.client.RosterConfig;
 import com.calclab.hablar.search.client.SearchConfig;
@@ -51,6 +52,8 @@ public class HablarConfig {
 		if (config.layout == HablarDisplay.Layout.tabs) {
 			createTabHeaderSize(config);
 		}
+		
+		config.rosterConfig.avatarConfig = new AvatarProviderRegistry().get(PageAssist.getMeta("hablar.avatarProvider"));
 
 		config.roomsConfig = HablarRoomsConfig.getFromMeta();
 		config.rosterConfig = RosterConfig.getFromMeta();
