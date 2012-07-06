@@ -62,6 +62,9 @@ public interface RoomMessages extends Messages {
 	@DefaultMessage("Group Chat Participants:")
 	String occupantsLabelText();
 
+	@DefaultMessage("Click to view the occupants")
+	String occupantsLabelTitle();
+
 	@DefaultMessage("Create a new group chat")
 	String openNewGroupChat();
 
