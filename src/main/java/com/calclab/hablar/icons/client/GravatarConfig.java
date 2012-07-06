@@ -7,14 +7,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.inject.Inject;
-
 import com.calclab.emite.core.client.xmpp.stanzas.XmppURI;
 
 public class GravatarConfig implements AvatarConfig {
-	
-	@Inject
-	AvatarProviderRegistry avatarProviderRegistry;
 
 	@Override
 	public String getUrl(final XmppURI xmppURI) {
