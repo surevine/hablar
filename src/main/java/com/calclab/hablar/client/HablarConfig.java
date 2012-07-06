@@ -11,8 +11,12 @@ import com.calclab.hablar.rooms.client.HablarRoomsConfig;
 import com.calclab.hablar.roster.client.RosterConfig;
 import com.calclab.hablar.search.client.SearchConfig;
 import com.calclab.hablar.vcard.client.VCardConfig;
+import com.google.inject.Inject;
 
 public class HablarConfig {
+	
+	@Inject
+	private static AvatarProviderRegistry avatarProviderRegistry;
 
 	private static void createTabHeaderSize(final HablarConfig config) {
 		Integer trim = null;
@@ -53,7 +57,7 @@ public class HablarConfig {
 			createTabHeaderSize(config);
 		}
 		
-		config.rosterConfig.avatarConfig = new AvatarProviderRegistry().get(PageAssist.getMeta("hablar.avatarProvider"));
+		config.rosterConfig.avatarConfig = avatarProviderRegistry.getFromMeta();
 
 		config.roomsConfig = HablarRoomsConfig.getFromMeta();
 		config.rosterConfig = RosterConfig.getFromMeta();

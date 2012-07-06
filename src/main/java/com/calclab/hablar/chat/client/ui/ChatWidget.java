@@ -43,7 +43,7 @@ public class ChatWidget extends Composite implements ChatDisplay {
 	@UiField
 	protected LayoutPanel page;
 	@UiField
-	protected FlowPanel list, controls, actions;
+	protected FlowPanel list, controls, actions, avatars;
 	@UiField
 	protected ScrollPanel scroll;
 	@UiField

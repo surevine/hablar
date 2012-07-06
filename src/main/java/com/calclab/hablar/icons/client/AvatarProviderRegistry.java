@@ -3,6 +3,8 @@ package com.calclab.hablar.icons.client;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.calclab.emite.browser.client.PageAssist;
+
 public class AvatarProviderRegistry {
 
 	private final Map<String, AvatarConfig> providers;
@@ -19,5 +21,9 @@ public class AvatarProviderRegistry {
 	
 	public AvatarConfig get(final String name) {
 		return name == null ? null : providers.get(name.toLowerCase());
+	}
+
+	public AvatarConfig getFromMeta() {
+		return get(PageAssist.getMeta("hablar.avatarProvider"));
 	}
 }
