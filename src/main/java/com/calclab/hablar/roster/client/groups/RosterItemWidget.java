@@ -4,6 +4,8 @@ import com.calclab.emite.im.client.roster.RosterItem;
 import com.calclab.hablar.core.client.Idify;
 import com.calclab.hablar.icons.client.PresenceIcon;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.DivElement;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -28,7 +30,10 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 	Label name, jid, status;
 
 	@UiField
-	Image menu, icon;
+	Image menu, icon, avatar;
+	
+	@UiField
+	DivElement dataOuter;
 
 	private static RosterItemWidgetUiBinder uiBinder = GWT.create(RosterItemWidgetUiBinder.class);
 
@@ -43,6 +48,8 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 		}
 		this.status.setVisible(hasStatus);
 		setIcon(PresenceIcon.get(item.isAvailable(), item.getShow()));
+		
+		avatar.setVisible(false);
 	}
 
 	public RosterItemWidget(final String groupId, final String itemId) {
@@ -50,6 +57,8 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 		self.ensureDebugId(Idify.id("RosterItemWidget", groupId, itemId));
 		// menu.addStyleName(HablarIcons.get(IconType.menu));
 		menu.ensureDebugId(Idify.id("RosterItemWidget", groupId, itemId, "roster-menu"));
+		
+		avatar.setVisible(false);
 	}
 
 	@Override
@@ -85,6 +94,15 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 	@Override
 	public void setIcon(final ImageResource imageResource) {
 		icon.setResource(imageResource);
+	}
+	
+	@Override
+	public void setAvatar(final String url) {
+		avatar.setUrl(url);
+		
+		avatar.setVisible(true);
+		
+		dataOuter.getStyle().setPaddingLeft(20, Unit.PX);
 	}
 
 	@Override

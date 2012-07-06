@@ -7,7 +7,9 @@ import com.calclab.emite.xep.muc.client.MucModule;
 import com.calclab.emite.xep.mucdisco.client.MucDiscoveryModule;
 import com.calclab.emite.xep.search.client.SearchModule;
 import com.calclab.emite.xep.vcard.client.VCardModule;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.google.gwt.inject.client.AbstractGinModule;
+import com.google.inject.Singleton;
 
 public class HablarModule extends AbstractGinModule {
 
@@ -20,6 +22,8 @@ public class HablarModule extends AbstractGinModule {
 		install(new MucDiscoveryModule());
 		install(new SearchModule());
 		install(new VCardModule());
+
+        bind(AvatarProviderRegistry.class).in(Singleton.class);
 	}
 
 }
