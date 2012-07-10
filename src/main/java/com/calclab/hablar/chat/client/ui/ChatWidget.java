@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -156,5 +157,28 @@ public class ChatWidget extends Composite implements ChatDisplay {
 		page.setWidgetTopBottom(scroll, 28, PX, controlsHeight + STATUS_HEIGHT + 3, PX);
 		page.setWidgetBottomHeight(state, controlsHeight, PX, STATUS_HEIGHT, PX);
 		page.setWidgetBottomHeight(controls, 3, PX, controlsHeight + 3, PX);
+	}
+
+	@Override
+	public void addAvatar(final String title, final String url) {
+		final Image image = new Image(url);
+		image.setWidth("24px");
+		image.setHeight("24px");
+		image.setTitle(title);
+		avatars.add(image);
+	}
+	
+	@Override
+	public void removeAvatar(final String url) {
+		// TODO: Use presenter to maintain the mappings rather than trawling the UI. 
+		for (int i = 0; i<avatars.getWidgetCount(); i++) {
+			if (avatars.getWidget(i) instanceof Image) {
+				final Image avatar = (Image) avatars.getWidget(i);
+				if (avatar.getUrl().equals(url)) {
+					avatar.removeFromParent();
+					break;
+				}
+			}
+		}
 	}
 }

@@ -12,6 +12,7 @@ import com.calclab.hablar.core.client.container.overlay.OverlayContainer;
 import com.calclab.hablar.core.client.page.PagePresenter.Visibility;
 import com.calclab.hablar.core.client.ui.menu.Action;
 import com.calclab.hablar.core.client.ui.menu.SimpleAction;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.icons.client.IconsBundle;
 import com.calclab.hablar.rooms.client.existing.OpenExistingRoomPresenter;
 import com.calclab.hablar.rooms.client.existing.OpenExistingRoomWidget;
@@ -30,8 +31,8 @@ public class HablarRooms {
 
 	@Inject
 	public HablarRooms(final Hablar hablar, final HablarRoomsConfig config, final XmppSession session, final XmppRoster roster, final RoomManager roomManager,
-			final RoomDiscoveryManager roomDiscoveryManager, final MUCChatStateManager mucChatStateManager) {
-		new HablarRoomManager(session, roster, roomManager, hablar, config);
+			final RoomDiscoveryManager roomDiscoveryManager, final MUCChatStateManager mucChatStateManager, final AvatarProviderRegistry registry) {
+		new HablarRoomManager(session, roster, roomManager, hablar, config, registry);
 
 		final InviteToRoomPresenter invitePage = new InviteToRoomPresenter(roster, hablar.getEventBus(), new EditRoomWidget());
 		hablar.addPage(invitePage, OverlayContainer.ROL);

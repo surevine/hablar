@@ -20,8 +20,11 @@ import com.calclab.hablar.chat.client.ui.PairChatPresenter;
 import com.calclab.hablar.core.client.Hablar;
 import com.calclab.hablar.core.client.mvp.HablarEventBus;
 import com.calclab.hablar.core.client.page.PagePresenter.Visibility;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 
 public class HablarChatManager {
+	
+	private AvatarProviderRegistry registry;
 
 	/**
 	 * Factory to create a chat display
@@ -58,7 +61,7 @@ public class HablarChatManager {
 
 	private final XmppRoster roster;
 
-	public HablarChatManager(final XmppRoster roster, final ChatManager chatManager, final Hablar hablar, final ChatConfig config) {
+	public HablarChatManager(final XmppRoster roster, final ChatManager chatManager, final Hablar hablar, final ChatConfig config, final AvatarProviderRegistry registry) {
 		this(roster, chatManager, hablar, config, new ChatPageFactory() {
 			@Override
 			public ChatDisplay create(final boolean sendButtonVisible) {
@@ -70,13 +73,15 @@ public class HablarChatManager {
 			public PairChatPresenter create(final HablarEventBus eventBus, final Chat chat, final ChatDisplay display) {
 				return new PairChatPresenter(roster, eventBus, chat, display);
 			}
-		});
+		}, registry);
 	}
 
 	public HablarChatManager(final XmppRoster roster, final ChatManager chatManager, final Hablar hablarPresenter, final ChatConfig config,
-			final ChatPageFactory chatPageFactory, final PairChatPresenterFactory chatPresenterFactory) {
+			final ChatPageFactory chatPageFactory, final PairChatPresenterFactory chatPresenterFactory, final AvatarProviderRegistry registry) {
 		this.roster = roster;
 		hablar = hablarPresenter;
+		
+		this.registry = registry;
 
 		this.chatPageFactory = chatPageFactory;
 		this.chatPresenterFactory = chatPresenterFactory;
@@ -126,19 +131,22 @@ public class HablarChatManager {
 		});
 
 		sendButtonVisible = config.sendButtonVisible;
-
 	}
 
 	private void createChat(final Chat chat, final Visibility visibility) {
+		final RosterItem item = roster.getItemByJID(chat.getURI().getJID());
 		final ChatDisplay display = chatPageFactory.create(sendButtonVisible);
+		
+		if (registry != null && registry.getFromMeta() != null) {
+			display.addAvatar(item.getName(), registry.getFromMeta().getUrl(item.getJID()));
+		}
+		
 		final PairChatPresenter presenter = chatPresenterFactory.create(hablar.getEventBus(), chat, display);
 		chatPages.put(chat, presenter);
 		hablar.addPage(presenter);
-
-		final RosterItem item = roster.getItemByJID(chat.getURI().getJID());
+		
 		final Show show = item != null ? item.getShow() : Show.unknown;
 		final boolean available = item != null ? item.isAvailable() : false;
 		presenter.setPresence(available, show);
 	}
-
 }

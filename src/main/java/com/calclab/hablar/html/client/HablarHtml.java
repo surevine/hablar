@@ -78,7 +78,7 @@ public class HablarHtml implements EntryPoint {
 		final RoomManager roomManager = ginjector.getRoomManager();
 
 		new HablarCore(hablar);
-		new HablarChat(hablar, config.chatConfig, roster, chatManager, ginjector.getStateManager());
+		new HablarChat(hablar, config.chatConfig, roster, chatManager, ginjector.getStateManager(), ginjector.getAvatarProviderRegistry());
 		new HablarRooms(hablar, config.roomsConfig, session, roster, roomManager, ginjector.getRoomDiscoveryManager(), ginjector.getMUCChatStateManager());
 		new HablarGroupChat(hablar, config.roomsConfig, session, roster, chatManager, roomManager);
 		new HablarDock(hablar, config.dockConfig);
@@ -104,7 +104,7 @@ public class HablarHtml implements EntryPoint {
 		}
 
 		if (config.hasSearch) {
-			new HablarSearch(hablar, config.searchConfig, session, roster, chatManager, ginjector.getSearchManager());
+			new HablarSearch(hablar, config.searchConfig, session, roster, chatManager, ginjector.getSearchManager(), ginjector.getAvatarProviderRegistry());
 		}
 
 		if (config.hasSignals) {

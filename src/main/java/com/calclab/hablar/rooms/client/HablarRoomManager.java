@@ -3,6 +3,7 @@ package com.calclab.hablar.rooms.client;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.calclab.emite.core.client.events.ChangedEvent.ChangeTypes;
 import com.calclab.emite.core.client.xmpp.session.XmppSession;
 import com.calclab.emite.core.client.xmpp.stanzas.XmppURI;
 import com.calclab.emite.im.client.chat.Chat;
@@ -12,17 +13,23 @@ import com.calclab.emite.im.client.roster.XmppRoster;
 import com.calclab.emite.xep.muc.client.Room;
 import com.calclab.emite.xep.muc.client.RoomInvitation;
 import com.calclab.emite.xep.muc.client.RoomManager;
+import com.calclab.emite.xep.muc.client.events.OccupantChangedEvent;
+import com.calclab.emite.xep.muc.client.events.OccupantChangedHandler;
 import com.calclab.emite.xep.muc.client.events.RoomInvitationEvent;
 import com.calclab.emite.xep.muc.client.events.RoomInvitationHandler;
 import com.calclab.hablar.chat.client.ui.ChatMessage;
 import com.calclab.hablar.core.client.Hablar;
 import com.calclab.hablar.core.client.mvp.HablarEventBus;
 import com.calclab.hablar.core.client.page.PagePresenter.Visibility;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.rooms.client.room.RoomDisplay;
 import com.calclab.hablar.rooms.client.room.RoomPresenter;
 import com.calclab.hablar.rooms.client.room.RoomWidget;
+import com.google.inject.Inject;
 
 public class HablarRoomManager {
+	
+	private AvatarProviderRegistry registry;
 
 	public static interface RoomPageFactory {
 		RoomDisplay create(boolean sendButtonVisible);
@@ -38,11 +45,13 @@ public class HablarRoomManager {
 	private final HashMap<XmppURI, RoomPresenter> roomPages;
 	private final ArrayList<RoomInvitation> acceptedInvitations;
 
+	@Inject
 	public HablarRoomManager(final RoomManager rooms, final Hablar hablar, final HablarRoomsConfig config, final RoomPageFactory factory,
-			final RoomPresenterFactory presenterFactory) {
+			final RoomPresenterFactory presenterFactory, final AvatarProviderRegistry registry) {
 		this.hablar = hablar;
 		this.factory = factory;
 		this.presenterFactory = presenterFactory;
+		this.registry = registry;
 		acceptedInvitations = new ArrayList<RoomInvitation>();
 		roomPages = new HashMap<XmppURI, RoomPresenter>();
 
@@ -67,7 +76,8 @@ public class HablarRoomManager {
 		});
 	}
 
-	public HablarRoomManager(final XmppSession session, final XmppRoster roster, final RoomManager rooms, final Hablar hablar, final HablarRoomsConfig config) {
+	public HablarRoomManager(final XmppSession session, final XmppRoster roster, final RoomManager rooms, final Hablar hablar, final HablarRoomsConfig config,
+			final AvatarProviderRegistry registry) {
 		this(rooms, hablar, config, new RoomPageFactory() {
 			@Override
 			public RoomDisplay create(final boolean sendButtonVisible) {
@@ -78,8 +88,7 @@ public class HablarRoomManager {
 			public RoomPresenter create(final HablarEventBus eventBus, final Room room, final RoomDisplay display) {
 				return new RoomPresenter(session, roster, eventBus, room, display);
 			}
-
-		});
+		}, registry);
 	}
 
 	protected void createRoom(final Room room) {
@@ -87,6 +96,17 @@ public class HablarRoomManager {
 		final RoomPresenter presenter = presenterFactory.create(hablar.getEventBus(), room, display);
 		roomPages.put(room.getURI(), presenter);
 		hablar.addPage(presenter);
+		
+		room.addOccupantChangedHandler(new OccupantChangedHandler() {
+			@Override
+			public void onOccupantChanged(final OccupantChangedEvent event) {
+				if (event.getChangeType().equals(ChangeTypes.added)) {
+					display.addAvatar(event.getOccupant().getNick(), registry.getFromMeta().getUrl(event.getOccupant().getJID()));
+				} else if (event.getChangeType().equals(ChangeTypes.removed)) {
+					display.removeAvatar(registry.getFromMeta().getUrl(event.getOccupant().getJID()));
+				} // We're only interested in add and remove events, AFAIK.
+			}
+		});
 	}
 
 	protected RoomInvitation getInvitation(final XmppURI uri) {
