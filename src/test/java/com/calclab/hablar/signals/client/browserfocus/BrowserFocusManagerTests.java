@@ -54,9 +54,9 @@ public class BrowserFocusManagerTests {
     }
 
     @Test
-    public void shouldRestoreFocusFromVisibleWhenBrowserGainsFocusAndPageIsNotUnattended() {
+    public void shouldNotRestoreFocusFromVisibleWhenBrowserGainsFocusAndPageIsNotUnattended() {
 	handler.setFocus(false);
 	handler.setFocus(true);
-	verify(display).setTextBoxFocus(true);
+	verify(display, times(0)).setTextBoxFocus(true);
     }
 }

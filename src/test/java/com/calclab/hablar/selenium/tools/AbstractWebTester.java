@@ -4,8 +4,8 @@ import java.awt.Point;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import com.google.gwt.user.client.ui.UIObject;
 import com.thoughtworks.selenium.Selenium;
@@ -13,14 +13,12 @@ import com.thoughtworks.selenium.Selenium;
 public abstract class AbstractWebTester {
     private final WebDriver driver;
     private final String baseUrl;
-    private final Selenium selenium;
 
     public AbstractWebTester(final WebDriver driver, final String baseUrl) {
 	this.driver = driver;
 	this.baseUrl = baseUrl;
 
-	selenium = new WebDriverBackedSelenium(driver, baseUrl);
-	selenium.setTimeout("5000");
+	driver.navigate().to(baseUrl);
     }
 
     public void close() {
@@ -37,15 +35,15 @@ public abstract class AbstractWebTester {
     }
 
     public boolean isElementPresent(final String id) {
-	return selenium.isElementPresent(id);
+    	return !driver.findElements(By.id(id)).isEmpty();
     }
 
     public boolean isTextPresent(final String text) {
-	return selenium.isTextPresent(text);
+    	return !driver.findElements(By.xpath("//*[contains(.,'"+text+"')]")).isEmpty();
     }
 
-    public void moveMouseAt(final Point point) {
-	selenium.mouseMoveAt(String.valueOf(point.getX()), String.valueOf(point.getY()));
+    public void moveMouseAt(final int x, final int y) {
+    	new Actions(driver).moveToElement(driver.findElement(By.tagName("body")), x, y);
     }
 
 }

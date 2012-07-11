@@ -36,7 +36,7 @@ public class RoomPresenterTests {
 	room = Mockito.mock(Room.class);
 	when(room.getURI()).thenReturn(XmppURI.uri("room@domain"));
 	when(room.getChatEventBus()).thenReturn(eventBus);
-	presenter = new RoomPresenter(emiteTester.session, emiteTester.xmppRoster, tester.getEventBus(), room, display);
+	presenter = new RoomPresenter(emiteTester.session, emiteTester.roster, tester.getEventBus(), room, display);
     }
 
     /**

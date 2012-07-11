@@ -1,23 +1,23 @@
 package com.calclab.hablar.selenium.vcard;
 
-import org.openqa.selenium.RenderedWebElement;
+import org.openqa.selenium.WebElement;
 
 public interface VCardPageObject {
 
-    public RenderedWebElement getEmail();
+    public WebElement getEmail();
 
-    public RenderedWebElement getFamilyName();
+    public WebElement getFamilyName();
 
-    public RenderedWebElement getGivenName();
+    public WebElement getGivenName();
 
-    public RenderedWebElement getHomepage();
+    public WebElement getHomepage();
 
-    public RenderedWebElement getMiddleName();
+    public WebElement getMiddleName();
 
-    public RenderedWebElement getName();
+    public WebElement getName();
 
-    public RenderedWebElement getNickName();
+    public WebElement getNickName();
 
-    public RenderedWebElement getOrganizationName();
+    public WebElement getOrganizationName();
 
 }

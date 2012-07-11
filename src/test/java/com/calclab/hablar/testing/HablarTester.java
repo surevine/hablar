@@ -14,12 +14,7 @@ import com.calclab.hablar.core.client.page.PagePresenter.Visibility;
 import com.calclab.hablar.core.client.ui.menu.Menu;
 import com.calclab.hablar.core.client.ui.menu.MenuDisplay;
 import com.calclab.hablar.core.mock.HablarMocks;
-import com.calclab.hablar.rooms.client.HablarRooms;
-import com.calclab.hablar.rooms.client.RoomsMessages;
-import com.calclab.hablar.roster.client.HablarRoster;
-import com.calclab.hablar.roster.client.RosterBasicActions;
-import com.calclab.hablar.roster.client.RosterMessages;
-import com.calclab.hablar.roster.client.groups.RosterGroupPresenter;
+import com.calclab.hablar.rooms.client.RoomMessages;
 import com.calclab.hablar.selenium.tools.I18nHelper;
 import com.calclab.hablar.testing.display.DisplayMocker;
 import com.google.gwt.event.shared.GwtEvent;
@@ -33,12 +28,12 @@ public class HablarTester {
 	HablarMocks.disarm();
 	BrowserFocusHandler.setInstance(new BrowserFocusHandlerStub());
 	eventBus = new EventBusTester();
-
-	final RosterMessages messages = newMessages(RosterMessages.class);
-	HablarRoster.setMessages(messages);
-	RosterBasicActions.setMessages(messages);
-	RosterGroupPresenter.setMessages(messages);
-	HablarRooms.setMessages(newMessages(RoomsMessages.class));
+	HablarGWTMockUtilities.addProvider(Messages.class, new HablarGWTMockUtilities.Provider<Messages>() {
+		@Override
+		public Messages get(Class<? extends Messages> clazz) {
+			return newMessages(clazz);
+		}
+	});
     }
 
     public void fire(final GwtEvent<?> event) {

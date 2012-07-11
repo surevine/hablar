@@ -1,6 +1,6 @@
 package com.calclab.hablar.selenium.vcard;
 
-import org.openqa.selenium.RenderedWebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -9,70 +9,70 @@ import com.calclab.hablar.selenium.PageObject;
 public class OtherVCardPageObject extends PageObject implements VCardPageObject {
 
     @FindBy(id = "gwt-debug-OtherVCardWidget-name")
-    RenderedWebElement name;
+    WebElement name;
 
     @FindBy(id = "gwt-debug-OtherVCardWidget-nickName")
-    RenderedWebElement nickName;
+    WebElement nickName;
 
     @FindBy(id = "gwt-debug-OtherVCardWidget-familyName")
-    RenderedWebElement familyName;
+    WebElement familyName;
 
     @FindBy(id = "gwt-debug-OtherVCardWidget-givenName")
-    RenderedWebElement givenName;
+    WebElement givenName;
 
     @FindBy(id = "gwt-debug-OtherVCardWidget-middleName")
-    RenderedWebElement middleName;
+    WebElement middleName;
 
     @FindBy(id = "gwt-debug-OtherVCardWidget-organizationName")
-    RenderedWebElement organizationName;
+    WebElement organizationName;
 
     @FindBy(id = "gwt-debug-OtherVCardWidget-email")
-    RenderedWebElement email;
+    WebElement email;
 
     @FindBy(id = "gwt-debug-OtherVCardWidget-homepage")
-    RenderedWebElement homepage;
+    WebElement homepage;
 
     public OtherVCardPageObject(final WebDriver webdriver) {
 	super(webdriver);
     }
 
     @Override
-    public RenderedWebElement getEmail() {
+    public WebElement getEmail() {
 	return email;
     }
 
     @Override
-    public RenderedWebElement getFamilyName() {
+    public WebElement getFamilyName() {
 	return familyName;
     }
 
     @Override
-    public RenderedWebElement getGivenName() {
+    public WebElement getGivenName() {
 	return givenName;
     }
 
     @Override
-    public RenderedWebElement getHomepage() {
+    public WebElement getHomepage() {
 	return homepage;
     }
 
     @Override
-    public RenderedWebElement getMiddleName() {
+    public WebElement getMiddleName() {
 	return middleName;
     }
 
     @Override
-    public RenderedWebElement getName() {
+    public WebElement getName() {
 	return name;
     }
 
     @Override
-    public RenderedWebElement getNickName() {
+    public WebElement getNickName() {
 	return nickName;
     }
 
     @Override
-    public RenderedWebElement getOrganizationName() {
+    public WebElement getOrganizationName() {
 	return organizationName;
     }
 }

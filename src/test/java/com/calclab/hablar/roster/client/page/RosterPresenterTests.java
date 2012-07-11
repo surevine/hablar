@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.calclab.emite.core.client.events.ChangedEvent.ChangeTypes;
 import com.calclab.emite.im.client.roster.RosterGroup;
+import com.calclab.emite.im.client.roster.XmppRoster;
 import com.calclab.emite.im.client.roster.events.RosterGroupChangedEvent;
 import com.calclab.emite.xtesting.XmppSessionTester;
 import com.calclab.hablar.core.client.mvp.HablarEventBus;
@@ -17,13 +18,12 @@ import com.calclab.hablar.roster.client.RosterConfig;
 import com.calclab.hablar.roster.client.groups.RosterGroupPresenter;
 import com.calclab.hablar.testing.EmiteTester;
 import com.calclab.hablar.testing.HablarTester;
-import com.calclab.hablar.testing.RosterTester;
 
 public class RosterPresenterTests {
 
     private HablarEventBus hablarEventBus;
     private RosterDisplay display;
-    private RosterTester roster;
+    private XmppRoster roster;
     private XmppSessionTester session;
 
     @Before
@@ -36,7 +36,7 @@ public class RosterPresenterTests {
 	display = tester.newDisplay(RosterDisplay.class);
 	final RosterConfig rosterConfig = new RosterConfig();
 	rosterConfig.oneClickChat = true;
-	new RosterPresenter(session, emite.xmppRoster, emite.chatManager, hablarEventBus, display, rosterConfig, null);
+	new RosterPresenter(session, emite.roster, emite.chatManager, hablarEventBus, display, rosterConfig, null);
     }
 
     @Test

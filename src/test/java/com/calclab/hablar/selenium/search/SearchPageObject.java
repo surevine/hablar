@@ -1,6 +1,6 @@
 package com.calclab.hablar.selenium.search;
 
-import org.openqa.selenium.RenderedWebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ByIdOrName;
 import org.openqa.selenium.support.FindBy;
@@ -14,74 +14,74 @@ public class SearchPageObject extends PageObject {
     public static final String GWT_DEBUG_SEARCH_LOGIC_ADD_ITEM = "gwt-debug-SearchLogic-add-item";
 
     @FindBy(id = "gwt-debug-SearchWidget-term")
-    private RenderedWebElement term;
+    private WebElement term;
 
     @FindBy(id = "gwt-debug-HeaderWidget-HablarSearch-1")
-    private RenderedWebElement header;
+    private WebElement header;
 
     @FindBy(id = "gwt-debug-SearchWidget-message")
-    private RenderedWebElement message;
+    private WebElement message;
 
     @FindBy(id = "gwt-debug-SearchWidget-search")
-    private RenderedWebElement searchButton;
+    private WebElement searchButton;
 
     @FindBy(id = "gwt-debug-HablarLogic-searchAction")
-    private RenderedWebElement searchAction;
+    private WebElement searchAction;
 
     @FindBy(id = GWT_DEBUG_SEARCH_LOGIC_REMOVE_ITEM)
-    private RenderedWebElement searchRemoveBuddyAction;
+    private WebElement searchRemoveBuddyAction;
 
     @FindBy(id = GWT_DEBUG_SEARCH_LOGIC_ADD_ITEM)
-    private RenderedWebElement searchAddBuddyAction;
+    private WebElement searchAddBuddyAction;
 
     @FindBy(id = "gwt-debug-SearchLogic-chat")
-    private RenderedWebElement searchChatAction;
+    private WebElement searchChatAction;
 
     public SearchPageObject(final WebDriver webdriver) {
 	super(webdriver);
     }
 
-    private RenderedWebElement findJid(final String jid) {
+    private WebElement findJid(final String jid) {
 	return findElement(new ByIdOrName("gwt-debug-" + Idify.uriId(jid) + "-search-menu"));
     }
 
-    public RenderedWebElement getAction() {
+    public WebElement getAction() {
 	return searchAction;
     }
 
-    public RenderedWebElement getAddBuddyAction() {
+    public WebElement getAddBuddyAction() {
 	return searchAddBuddyAction;
     }
 
-    public RenderedWebElement getChat(final String jid) {
+    public WebElement getChat(final String jid) {
 	return findElement(new ByIdOrName("gwt-debug-HeaderWidget-Chat-" + Idify.uriId(jid)));
     }
 
-    public RenderedWebElement getChatAction() {
+    public WebElement getChatAction() {
 	return searchChatAction;
     }
 
-    public RenderedWebElement getHeader() {
+    public WebElement getHeader() {
 	return header;
     }
 
-    public RenderedWebElement getRemoveBuddyAction() {
+    public WebElement getRemoveBuddyAction() {
 	return searchRemoveBuddyAction;
     }
 
-    public RenderedWebElement getResultMenu(final String jid) {
+    public WebElement getResultMenu(final String jid) {
 	return findJid(jid);
     }
 
-    public RenderedWebElement getSearchButton() {
+    public WebElement getSearchButton() {
 	return searchButton;
     }
 
-    public RenderedWebElement getTerm() {
+    public WebElement getTerm() {
 	return term;
     }
 
-    public RenderedWebElement Message() {
+    public WebElement Message() {
 	return message;
     }
 

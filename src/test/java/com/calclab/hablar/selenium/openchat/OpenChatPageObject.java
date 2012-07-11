@@ -1,6 +1,6 @@
 package com.calclab.hablar.selenium.openchat;
 
-import org.openqa.selenium.RenderedWebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,28 +10,28 @@ import com.calclab.hablar.selenium.PageObject;
 public class OpenChatPageObject extends PageObject {
 
     @FindBy(id = "gwt-debug-OpenChatWidget-jabberId")
-    private RenderedWebElement jabberId;
+    private WebElement jabberId;
 
     @FindBy(id = "gwt-debug-OpenChatWidget-open")
-    private RenderedWebElement open;
+    private WebElement open;
 
     @FindBy(id = "gwt-debug-OpenChatWidget-cancel")
-    private RenderedWebElement cancel;
+    private WebElement cancel;
 
     @FindBy(id = "gwt-debug-HablarOpenChat-openAction")
-    private RenderedWebElement action;
+    private WebElement action;
 
     @FindBy(className = "hablar-OpenChatWidget")
-    private RenderedWebElement widget;
+    private WebElement widget;
 
     @FindBy(id = "gwt-debug-OpenChatWidget-addToRoster-input")
-    private RenderedWebElement addToRoster;
+    private WebElement addToRoster;
 
     public OpenChatPageObject(final WebDriver webdriver) {
 	super(webdriver);
     }
 
-    public RenderedWebElement getAction() {
+    public WebElement getAction() {
 	return action;
     }
 
@@ -39,19 +39,19 @@ public class OpenChatPageObject extends PageObject {
 	return addToRoster;
     }
 
-    public RenderedWebElement getCancel() {
+    public WebElement getCancel() {
 	return cancel;
     }
 
-    public RenderedWebElement getJabberId() {
+    public WebElement getJabberId() {
 	return jabberId;
     }
 
-    public RenderedWebElement getOpen() {
+    public WebElement getOpen() {
 	return open;
     }
 
-    public RenderedWebElement getWidget() {
+    public WebElement getWidget() {
 	return widget;
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.calclab.emite.core.client.xmpp.stanzas.IQ;
 import com.calclab.emite.core.client.xmpp.stanzas.Presence.Show;
 import com.calclab.emite.xtesting.services.TigaseXMLService;
 
@@ -20,7 +21,7 @@ public class StoredPresencesTest {
 
     @Test
     public void shouldAddtoEmptyResult() {
-	final StoredPresences parsed = StoredPresences.parse(new IQResponse(TigaseXMLService.toPacket(empty)));
+	final StoredPresences parsed = StoredPresences.parse(new IQ(TigaseXMLService.toPacket(empty)));
 	parsed.add(new StoredPresence("Sleeping...", Show.away));
 	assertEquals(1, parsed.get().size());
     }
@@ -38,9 +39,9 @@ public class StoredPresencesTest {
 
     @Test
     public void shouldParse() {
-	StoredPresences parsed = StoredPresences.parse(new IQResponse(TigaseXMLService.toPacket(packet)));
+	StoredPresences parsed = StoredPresences.parse(new IQ(TigaseXMLService.toPacket(packet)));
 	assertEquals(1, parsed.get().size());
-	parsed = StoredPresences.parse(new IQResponse(TigaseXMLService.toPacket(empty)));
+	parsed = StoredPresences.parse(new IQ(TigaseXMLService.toPacket(empty)));
 	assertEquals(0, parsed.get().size());
     }
 

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.calclab.emite.core.client.xmpp.stanzas.IQ;
 import com.calclab.emite.xtesting.services.TigaseXMLService;
 
 public class StoredPreferencesTest {
@@ -25,7 +26,7 @@ public class StoredPreferencesTest {
     @Test
     public void shouldParsePacket() {
 	final StoredPreferences preferences = StoredPreferences
-		.parse(new IQResponse(TigaseXMLService.toPacket(packet)));
+		.parse(new IQ(TigaseXMLService.toPacket(packet)));
 	shouldHaveCorrentPreferences(preferences);
     }
 

@@ -30,9 +30,9 @@ public class UserPageTests extends HablarSeleniumTest {
 	userPage.getHeader().click();
 	userPage.waitFor(userPage.getTitleSignals());
 	togglePrefs();
-	Assert.assertEquals("on", userPage.getTitleSignals().getValue());
-	Assert.assertEquals("on", userPage.getIncomingNotifications().getValue());
-	Assert.assertEquals("on", userPage.getRosterNotifications().getValue());
+	Assert.assertEquals("on", userPage.getTitleSignals().getAttribute("value"));
+	Assert.assertEquals("on", userPage.getIncomingNotifications().getAttribute("value"));
+	Assert.assertEquals("on", userPage.getRosterNotifications().getAttribute("value"));
 	userPage.getClose().click();
 	logout();
     }
@@ -75,14 +75,14 @@ public class UserPageTests extends HablarSeleniumTest {
     }
 
     private void checkVCard(final String value, final VCardPageObject page) {
-	Assert.assertEquals(page.getName().getValue(), value);
-	Assert.assertEquals(page.getFamilyName().getValue(), value);
-	Assert.assertEquals(page.getGivenName().getValue(), value);
-	Assert.assertEquals(page.getNickName().getValue(), value);
-	Assert.assertEquals(page.getMiddleName().getValue(), value);
-	Assert.assertEquals(page.getHomepage().getValue(), value);
-	Assert.assertEquals(page.getEmail().getValue(), value);
-	Assert.assertEquals(page.getOrganizationName().getValue(), value);
+	Assert.assertEquals(page.getName().getAttribute("value"), value);
+	Assert.assertEquals(page.getFamilyName().getAttribute("value"), value);
+	Assert.assertEquals(page.getGivenName().getAttribute("value"), value);
+	Assert.assertEquals(page.getNickName().getAttribute("value"), value);
+	Assert.assertEquals(page.getMiddleName().getAttribute("value"), value);
+	Assert.assertEquals(page.getHomepage().getAttribute("value"), value);
+	Assert.assertEquals(page.getEmail().getAttribute("value"), value);
+	Assert.assertEquals(page.getOrganizationName().getAttribute("value"), value);
     }
 
     private void togglePrefs() {

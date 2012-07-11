@@ -1,5 +1,6 @@
 package com.calclab.hablar.rooms.client.occupant;
 
+import com.calclab.hablar.rooms.client.RoomMessages;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseOutHandlers;
 import com.google.gwt.event.dom.client.HasMouseOverHandlers;
@@ -17,6 +18,7 @@ public class OccupantsWidget extends Label implements OccupantsDisplay {
 		this.addStyleName("hablar-lightBackground");
 		this.addStyleName("hablar-darkColor");
 		this.ensureDebugId("hablar-OccupantsWidget-" + roomId);
+		this.setTitle(RoomMessages.msg.occupantsLabelTitle());
 		popup = new PopupPanel(true);
 		popup.addStyleName("occupants");
 		occupants = new FlowPanel();

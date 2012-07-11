@@ -1,7 +1,7 @@
 package com.calclab.hablar.selenium.opengroupchat;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.RenderedWebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,44 +13,44 @@ public class OpenGroupChatPageObject extends PageObject {
     private final static String USER_LIST_WIDGET_ID = "gwt-debug-InviteToRoomWidget-list";
 
     @FindBy(id = "gwt-debug-HablarRooms-openRoom")
-    private RenderedWebElement action;
+    private WebElement action;
 
     @FindBy(id = "gwt-debug-InviteToRoomWidget-roomName")
-    private RenderedWebElement roomName;
+    private WebElement roomName;
 
     @FindBy(id = "gwt-debug-InviteToRoomWidget-message")
-    private RenderedWebElement message;
+    private WebElement message;
 
     @FindBy(id = "gwt-debug-InviteToRoomWidget-invite")
-    private RenderedWebElement invite;
+    private WebElement invite;
 
     @FindBy(id = "gwt-debug-InviteToRoomWidget-cancel")
-    private RenderedWebElement cancel;
+    private WebElement cancel;
 
     @FindBy(className = "hablar-OpenRoomWidget")
-    private RenderedWebElement widget;
+    private WebElement widget;
 
     public OpenGroupChatPageObject(final WebDriver webdriver) {
 	super(webdriver);
     }
 
-    public RenderedWebElement getAction() {
+    public WebElement getAction() {
 	return action;
     }
 
-    public RenderedWebElement getCancel() {
+    public WebElement getCancel() {
 	return cancel;
     }
 
-    public RenderedWebElement getInvite() {
+    public WebElement getInvite() {
 	return invite;
     }
 
-    public RenderedWebElement getMessage() {
+    public WebElement getMessage() {
 	return message;
     }
 
-    public RenderedWebElement getRoomName() {
+    public WebElement getRoomName() {
 	return roomName;
     }
 
@@ -60,7 +60,7 @@ public class OpenGroupChatPageObject extends PageObject {
 		+ "']//input[@type='checkbox' and (../../div[@class='jid']) = '" + jid + "']"));
     }
 
-    public RenderedWebElement getWidget() {
+    public WebElement getWidget() {
 	return widget;
     }
 }

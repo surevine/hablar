@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.inject.Provider;
 
 public class DisplayStubFactory {
 
