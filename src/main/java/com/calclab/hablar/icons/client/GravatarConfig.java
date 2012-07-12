@@ -13,7 +13,7 @@ public class GravatarConfig implements AvatarConfig {
 
 	@Override
 	public String getUrl(final XmppURI xmppURI) {
-		return "http://gravatar.com/avatar/" + new MD5Util().digest(xmppURI.getJID().toString() +"?s=24&d=mm");
+		return "http://gravatar.com/avatar/" + new MD5Util().digest(xmppURI.getJID().toString()) +"?s=24&d=mm";
 	}
 
 	class MD5Util {
