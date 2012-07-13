@@ -17,6 +17,7 @@ import com.calclab.hablar.dock.client.HablarDock;
 import com.calclab.hablar.editbuddy.client.HablarEditBuddy;
 import com.calclab.hablar.group.client.HablarGroup;
 import com.calclab.hablar.groupchat.client.HablarGroupChat;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.login.client.HablarLogin;
 import com.calclab.hablar.login.client.LoginConfig;
 import com.calclab.hablar.openchat.client.HablarOpenChat;
@@ -76,10 +77,11 @@ public class HablarHtml implements EntryPoint {
 		final XmppRoster roster = ginjector.getXmppRoster();
 		final ChatManager chatManager = ginjector.getChatManager();
 		final RoomManager roomManager = ginjector.getRoomManager();
+		final AvatarProviderRegistry registry = ginjector.getAvatarProviderRegistry();
 
 		new HablarCore(hablar);
-		new HablarChat(hablar, config.chatConfig, roster, chatManager, ginjector.getStateManager(), ginjector.getAvatarProviderRegistry());
-		new HablarRooms(hablar, config.roomsConfig, session, roster, roomManager, ginjector.getRoomDiscoveryManager(), ginjector.getMUCChatStateManager());
+		new HablarChat(hablar, config.chatConfig, roster, chatManager, ginjector.getStateManager(), registry);
+		new HablarRooms(hablar, config.roomsConfig, session, roster, roomManager, ginjector.getRoomDiscoveryManager(), ginjector.getMUCChatStateManager(), registry);
 		new HablarGroupChat(hablar, config.roomsConfig, session, roster, chatManager, roomManager);
 		new HablarDock(hablar, config.dockConfig);
 		new HablarUser(hablar, session, ginjector.getPresenceManager(), ginjector.getPrivateStorageManager());

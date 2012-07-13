@@ -2,6 +2,9 @@ package com.calclab.hablar.chat.client.ui;
 
 import static com.google.gwt.dom.client.Style.Unit.PX;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.calclab.hablar.core.client.ui.actions.ActionWidget;
 import com.calclab.hablar.core.client.ui.menu.Action;
 import com.google.gwt.core.client.GWT;
@@ -38,6 +41,11 @@ public class ChatWidget extends Composite implements ChatDisplay {
 	private static final int STATUS_HEIGHT = 6;
 
 	private static ChatWidgetUiBinder uiBinder = GWT.create(ChatWidgetUiBinder.class);
+	
+	/**
+	 * Maintains a list of the avatars displayed by their URL.
+	 */
+	private List<String> avatarUrls;
 
 	@UiField
 	protected TextArea talkBox;
@@ -60,6 +68,8 @@ public class ChatWidget extends Composite implements ChatDisplay {
 		initWidget(uiBinder.createAndBindUi(this));
 		controlsHeight = 0;
 		state.setVisible(false);
+		
+		avatarUrls = new ArrayList<String>();
 	}
 
 	@Override
@@ -161,24 +171,32 @@ public class ChatWidget extends Composite implements ChatDisplay {
 
 	@Override
 	public void addAvatar(final String title, final String url) {
-		final Image image = new Image(url);
-		image.setWidth("24px");
-		image.setHeight("24px");
-		image.setTitle(title);
-		avatars.add(image);
+		if (!avatarUrls.contains(url)) {
+			final Image image = new Image(url);
+			image.setWidth("24px");
+			image.setHeight("24px");
+			image.setTitle(title);
+			
+			avatarUrls.add(url);
+			avatars.add(image);
+		}
 	}
 	
 	@Override
 	public void removeAvatar(final String url) {
-		// TODO: Use presenter to maintain the mappings rather than trawling the UI. 
-		for (int i = 0; i<avatars.getWidgetCount(); i++) {
-			if (avatars.getWidget(i) instanceof Image) {
-				final Image avatar = (Image) avatars.getWidget(i);
-				if (avatar.getUrl().equals(url)) {
-					avatar.removeFromParent();
-					break;
-				}
+		final int idx = indexOf(avatarUrls, url);
+		
+		avatars.remove(idx);
+		avatarUrls.remove(idx);
+	}
+	
+	private static int indexOf(final List<String> source, final String target) {
+		for (int i = 0; i<source.size(); i++) {
+			if (source.get(i).equals(target)) {
+				return i;
 			}
 		}
+		
+		return -1;
 	}
 }
