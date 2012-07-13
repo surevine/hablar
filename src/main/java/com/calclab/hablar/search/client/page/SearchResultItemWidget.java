@@ -21,7 +21,7 @@ public class SearchResultItemWidget extends Composite implements SearchResultIte
 	Label name, jid;
 
 	@UiField
-	Image buddyIcon, menu;
+	Image buddyIcon, menu, avatar;
 
 	public SearchResultItemWidget(final String itemId) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -56,5 +56,10 @@ public class SearchResultItemWidget extends Composite implements SearchResultIte
 	@Override
 	public HasText getName() {
 		return name;
+	}
+	
+	@Override
+	public void setAvatar(final String url) {
+		this.avatar.setUrl(url);
 	}
 }

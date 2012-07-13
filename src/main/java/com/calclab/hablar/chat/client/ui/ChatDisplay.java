@@ -24,6 +24,10 @@ public interface ChatDisplay extends Display {
 	 *            the widget to add
 	 */
 	void addToActions(Widget widget);
+	
+	void addAvatar(String title, String url);
+	
+	void removeAvatar(String url);
 
 	void clearAndFocus();
 

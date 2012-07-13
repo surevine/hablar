@@ -17,4 +17,6 @@ public interface SearchResultItemDisplay extends Display {
 	HasClickHandlers getClickableJid();
 
 	HasClickHandlers getClickableName();
+	
+	void setAvatar(String url);
 }
