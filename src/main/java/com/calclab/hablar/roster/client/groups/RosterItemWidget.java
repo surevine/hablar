@@ -33,7 +33,7 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 	Image menu, icon, avatar;
 	
 	@UiField
-	DivElement dataOuter;
+	DivElement data;
 
 	private static RosterItemWidgetUiBinder uiBinder = GWT.create(RosterItemWidgetUiBinder.class);
 
@@ -102,7 +102,8 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 		
 		avatar.setVisible(true);
 		
-		dataOuter.getStyle().setPaddingLeft(20, Unit.PX);
+		data.getStyle().setPaddingLeft(65, Unit.PX);
+		data.getStyle().setLeft(-40, Unit.PX);
 	}
 
 	@Override

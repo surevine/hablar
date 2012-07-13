@@ -14,6 +14,7 @@ import com.calclab.emite.xep.mucdisco.client.RoomDiscoveryManager;
 import com.calclab.emite.xep.search.client.SearchManager;
 import com.calclab.emite.xep.storage.client.PrivateStorageManager;
 import com.calclab.emite.xep.vcard.client.VCardManager;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.google.gwt.inject.client.GinModules;
 import com.google.gwt.inject.client.Ginjector;
 
@@ -45,5 +46,7 @@ public interface HablarGinjector extends Ginjector {
 	SubscriptionHandler getSubscriptionHandler();
 
 	PrivateStorageManager getPrivateStorageManager();
+    
+    AvatarProviderRegistry getAvatarProviderRegistry();
 
 }

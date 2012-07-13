@@ -58,8 +58,8 @@
 				<g:Image resource="{res.menuIcon}" ui:field="menu"
 					addStyleNames="menu" />
 				<g:Image url="" ui:field="avatar" addStyleNames="icon {style.avatar}"/>
-				<div class="{style.dataOuter}" ui:field="dataOuter">
-					<div class="{style.data} ellipsis">
+				<div class="{style.dataOuter}">
+					<div class="{style.data} ellipsis" ui:field="data">
 						<g:Label addStyleNames="{style.name} name" ui:field="name">name-here</g:Label>
 						<g:Label addStyleNames="{style.jid} hablar-lightColor"
 							ui:field="jid">jid</g:Label>

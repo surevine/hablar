@@ -2,6 +2,9 @@ package com.calclab.hablar.chat.client.ui;
 
 import static com.google.gwt.dom.client.Style.Unit.PX;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.calclab.hablar.core.client.ui.actions.ActionWidget;
 import com.calclab.hablar.core.client.ui.menu.Action;
 import com.google.gwt.core.client.GWT;
@@ -17,6 +20,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -37,6 +41,11 @@ public class ChatWidget extends Composite implements ChatDisplay {
 	private static final int STATUS_HEIGHT = 6;
 
 	private static ChatWidgetUiBinder uiBinder = GWT.create(ChatWidgetUiBinder.class);
+	
+	/**
+	 * Maintains a list of the avatars displayed by their URL.
+	 */
+	private List<String> avatarUrls;
 
 	@UiField
 	protected TextArea talkBox;
@@ -59,6 +68,8 @@ public class ChatWidget extends Composite implements ChatDisplay {
 		initWidget(uiBinder.createAndBindUi(this));
 		controlsHeight = 0;
 		state.setVisible(false);
+		
+		avatarUrls = new ArrayList<String>();
 	}
 
 	@Override
@@ -156,5 +167,36 @@ public class ChatWidget extends Composite implements ChatDisplay {
 		page.setWidgetTopBottom(scroll, 28, PX, controlsHeight + STATUS_HEIGHT + 3, PX);
 		page.setWidgetBottomHeight(state, controlsHeight, PX, STATUS_HEIGHT, PX);
 		page.setWidgetBottomHeight(controls, 3, PX, controlsHeight + 3, PX);
+	}
+
+	@Override
+	public void addAvatar(final String title, final String url) {
+		if (!avatarUrls.contains(url)) {
+			final Image image = new Image(url);
+			image.setWidth("24px");
+			image.setHeight("24px");
+			image.setTitle(title);
+			
+			avatarUrls.add(url);
+			avatars.add(image);
+		}
+	}
+	
+	@Override
+	public void removeAvatar(final String url) {
+		final int idx = indexOf(avatarUrls, url);
+		
+		avatars.remove(idx);
+		avatarUrls.remove(idx);
+	}
+	
+	private static int indexOf(final List<String> source, final String target) {
+		for (int i = 0; i<source.size(); i++) {
+			if (source.get(i).equals(target)) {
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 }

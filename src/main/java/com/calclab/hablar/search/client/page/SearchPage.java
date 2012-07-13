@@ -13,6 +13,7 @@ import com.calclab.hablar.core.client.mvp.HablarEventBus;
 import com.calclab.hablar.core.client.page.PagePresenter;
 import com.calclab.hablar.core.client.ui.menu.Menu;
 import com.calclab.hablar.core.client.ui.menu.MenuDisplay;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.icons.client.IconsBundle;
 import com.calclab.hablar.search.client.SearchMessages;
 import com.calclab.hablar.search.client.SearchQueryFactory;
@@ -32,13 +33,15 @@ public class SearchPage extends PagePresenter<SearchDisplay> {
 	private final Menu<SearchResultItem> itemMenu;
 	private final SearchQueryFactory queryFactory;
 	private final XmppSession session;
+	private final AvatarProviderRegistry registry;
 
 	public SearchPage(final XmppSession session, final SearchManager searchManager, final Visibility visibility, final boolean closeable,
-			final SearchQueryFactory queryFactory, final HablarEventBus eventBus, final SearchWidget display) {
+			final SearchQueryFactory queryFactory, final HablarEventBus eventBus, final SearchWidget display, final AvatarProviderRegistry registry) {
 		super("HablarSearch", "" + ++index, eventBus, display);
 		this.session = session;
 		this.searchManager = searchManager;
 		this.queryFactory = queryFactory;
+		this.registry = registry;
 		setVisibility(visibility);
 		model.setCloseable(closeable);
 		final String title = SearchMessages.msg.searchUsers();
@@ -102,6 +105,7 @@ public class SearchPage extends PagePresenter<SearchDisplay> {
 							resultCount++;
 							final SearchResultItemDisplay itemDisplay = display.newSearchResultItemDisplay(Idify.id(item.getJid()));
 							new SearchResultItemPresenter(item, itemMenu, itemDisplay);
+							itemDisplay.setAvatar(registry.getFromMeta().getUrl(item.getJid()));
 							display.addResult(itemDisplay);
 						}
 					}

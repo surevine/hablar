@@ -12,6 +12,7 @@ import com.calclab.hablar.core.client.container.PageAddedEvent;
 import com.calclab.hablar.core.client.container.PageAddedHandler;
 import com.calclab.hablar.core.client.page.PagePresenter.Visibility;
 import com.calclab.hablar.core.client.ui.menu.SimpleAction;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.icons.client.IconsBundle;
 import com.calclab.hablar.roster.client.page.RosterPage;
 import com.calclab.hablar.roster.client.page.RosterPresenter;
@@ -27,12 +28,12 @@ public class HablarSearch {
 	protected static final String ACTION_ID = "HablarLogic-searchAction";
 
 	public HablarSearch(final Hablar hablar, final SearchConfig searchConfig, final XmppSession session, final XmppRoster roster,
-			final ChatManager chatManager, final SearchManager searchManager) {
+			final ChatManager chatManager, final SearchManager searchManager, final AvatarProviderRegistry registry) {
 
 		searchManager.setHost(XmppURI.uri(null, searchConfig.searchService, null));
 		final Visibility visible = searchConfig.searchOnRoster ? Visibility.hidden : Visibility.notFocused;
 		final SearchPage searchPage = new SearchPage(session, searchManager, visible, searchConfig.searchCloseable, searchConfig.queryFactory,
-				hablar.getEventBus(), new SearchWidget());
+				hablar.getEventBus(), new SearchWidget(), registry);
 		hablar.addPage(searchPage);
 
 		if (searchConfig.searchActions != null) {
