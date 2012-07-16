@@ -16,17 +16,19 @@ public class ChatMessage {
 	public final String body;
 	public final MessageType type;
 	public String color;
+	public String avatarUrl;
 
 	public ChatMessage(final String body) {
-		this(null, body, MessageType.info);
+		this(null, body, MessageType.info, null);
 	}
 
-	public ChatMessage(final String author, final String body, final MessageType type) {
+	public ChatMessage(final String author, final String body, final MessageType type, final String avatarUrl) {
 		this.author = author;
 		this.body = body;
 		this.type = type;
 		this.metadata = null;
 		this.color = null;
+		this.avatarUrl = avatarUrl;
 	}
 
 	@SuppressWarnings("deprecation")

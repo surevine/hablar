@@ -10,6 +10,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -27,6 +28,8 @@ public class ChatMessageWidget extends Composite {
 	SpanElement body, metadata;
 	@UiField
 	Label author;
+	@UiField
+	Image avatar;
 
 	public ChatMessageWidget(final ChatMessage message) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -48,6 +51,11 @@ public class ChatMessageWidget extends Composite {
 		newBody.addClassName("body");
 		newBody.addClassName(type.toString());
 		body.addClassName(type.toString());
+		
+		if (message.avatarUrl != null) {
+			avatar.setUrl(message.avatarUrl);
+			avatar.setHeight("32px");
+		}
+		avatar.setWidth("32px");
 	}
-
 }

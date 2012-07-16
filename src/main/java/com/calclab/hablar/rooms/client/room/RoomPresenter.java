@@ -21,6 +21,8 @@ import com.calclab.hablar.core.client.mvp.HablarEventBus;
 import com.calclab.hablar.core.client.page.events.UserMessageEvent;
 import com.calclab.hablar.core.client.ui.menu.Action;
 import com.calclab.hablar.core.client.validators.Empty;
+import com.calclab.hablar.icons.client.AvatarConfig;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.icons.client.IconsBundle;
 import com.calclab.hablar.rooms.client.RoomMessages;
 import com.calclab.hablar.rooms.client.RoomName;
@@ -36,11 +38,16 @@ public class RoomPresenter extends ChatPresenter implements RoomPage {
 	private static int id = 0;
 
 	private final Room room;
+	
+	private final AvatarConfig avatarConfig;
 
-	public RoomPresenter(final XmppSession session, final XmppRoster roster, final HablarEventBus eventBus, final Room room, final RoomDisplay display) {
-		super(TYPE, "" + ++id, eventBus, room, display);
+	public RoomPresenter(final XmppSession session, final XmppRoster roster, final HablarEventBus eventBus, final Room room, final RoomDisplay display,
+			final AvatarProviderRegistry registry) {
+		super(TYPE, "" + ++id, eventBus, room, display, registry);
 		this.room = room;
 		display.setId(getId());
+		
+		this.avatarConfig = registry.getFromMeta();
 
 		new RoomNotificationPresenter(session, roster, this, room);
 		new OccupantsPresenter(roster, room, display.createOccupantsDisplay(room.getID()));
@@ -79,7 +86,8 @@ public class RoomPresenter extends ChatPresenter implements RoomPage {
 				if (!room.isComingFromMe(message) || (delay != null)) {
 					final String messageBody = message.getBody();
 					if (Empty.not(messageBody)) {
-						final ChatMessage chatMessage = new ChatMessage(from, messageBody, ChatMessage.MessageType.incoming);
+						final ChatMessage chatMessage = new ChatMessage(from, messageBody, ChatMessage.MessageType.incoming,
+								occupant == null ? null : avatarConfig.getUrl(occupant.getJID()));
 						if (occupant != null) {
 							chatMessage.color = ColorHelper.getColor(occupant.getJID());
 						} else {

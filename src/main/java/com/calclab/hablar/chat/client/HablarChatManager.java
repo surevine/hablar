@@ -24,7 +24,7 @@ import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 
 public class HablarChatManager {
 	
-	private AvatarProviderRegistry registry;
+	private final AvatarProviderRegistry registry;
 
 	/**
 	 * Factory to create a chat display
@@ -71,7 +71,7 @@ public class HablarChatManager {
 
 			@Override
 			public PairChatPresenter create(final HablarEventBus eventBus, final Chat chat, final ChatDisplay display) {
-				return new PairChatPresenter(roster, eventBus, chat, display);
+				return new PairChatPresenter(roster, eventBus, chat, display, registry);
 			}
 		}, registry);
 	}
