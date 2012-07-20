@@ -50,7 +50,7 @@ public class RoomPresenter extends ChatPresenter implements RoomPage {
 		this.avatarConfig = registry.getFromMeta();
 
 		new RoomNotificationPresenter(session, roster, this, room);
-		new OccupantsPresenter(roster, room, display.createOccupantsDisplay(room.getID()));
+		new OccupantsPresenter(roster, room, display.createOccupantsDisplay(room.getID()), registry);
 
 		final String roomName = RoomName.decode(room.getURI().getNode());
 		setVisibility(Visibility.notFocused);

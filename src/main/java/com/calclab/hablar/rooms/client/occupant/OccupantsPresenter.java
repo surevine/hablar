@@ -7,6 +7,7 @@ import com.calclab.emite.xep.muc.client.Room;
 import com.calclab.emite.xep.muc.client.events.OccupantChangedEvent;
 import com.calclab.emite.xep.muc.client.events.OccupantChangedHandler;
 import com.calclab.hablar.core.client.mvp.Presenter;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.icons.client.IconsBundle;
 import com.calclab.hablar.rooms.client.RoomMessages;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -22,7 +23,7 @@ public class OccupantsPresenter implements Presenter<OccupantsDisplay> {
 	private final OccupantsDisplay display;
 	private int occupantsCount;
 
-	public OccupantsPresenter(final XmppRoster roster, final Room room, final OccupantsDisplay display) {
+	public OccupantsPresenter(final XmppRoster roster, final Room room, final OccupantsDisplay display, final AvatarProviderRegistry registry) {
 		this.roster = roster;
 		this.display = display;
 		occupantsCount = 0;
@@ -40,6 +41,10 @@ public class OccupantsPresenter implements Presenter<OccupantsDisplay> {
 				}
 			}
 		});
+		
+		if (registry != null) {
+			display.asWidget().setVisible(false);
+		}
 /*
 		display.getOverAction().addMouseOverHandler(new MouseOverHandler() {
 			@Override

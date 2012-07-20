@@ -21,6 +21,13 @@
 			margin-bottom: 0px !important;
 			width: 24px;
 			height: 24px;
+			position: relative;
+		}
+		
+		.avatar:hover {
+			z-index: 2147483647;
+			width: 64px;
+			height: 64px;
 		}
 		
 		.name {
@@ -57,7 +64,9 @@
 					ui:field="icon" />
 				<g:Image resource="{res.menuIcon}" ui:field="menu"
 					addStyleNames="menu" />
-				<g:Image url="" ui:field="avatar" addStyleNames="icon {style.avatar}"/>
+				<span style="width: 24px; height: 24px; position: absolute">
+					<g:Image url="" ui:field="avatar" addStyleNames="icon {style.avatar}"/>
+				</span>
 				<div class="{style.dataOuter}">
 					<div class="{style.data} ellipsis" ui:field="data">
 						<g:Label addStyleNames="{style.name} name" ui:field="name">name-here</g:Label>

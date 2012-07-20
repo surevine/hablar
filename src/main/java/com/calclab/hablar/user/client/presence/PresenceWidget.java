@@ -28,12 +28,14 @@ public class PresenceWidget extends Composite implements PresenceDisplay {
 	@UiField
 	SpanElement title;
 	@UiField
-	Image icon, menu;
+	Image icon, menu, avatar;
 
 	public PresenceWidget() {
 		initWidget(uiBinder.createAndBindUi(this));
 		status.ensureDebugId("PresenceWidget-status");
 		menu.addStyleName("PresenceWidget-menu");
+		
+		avatar.setUrl("https://10.66.2.242/share/proxy/alfresco/sv-theme/user-profile/avatar?user=verify-surevine&size=smallAvatar");
 	}
 
 	@Override

@@ -3,6 +3,10 @@
   xmlns:g="urn:import:com.google.gwt.user.client.ui">
   <ui:with type="com.calclab.hablar.icons.client.IconsBundle" field="res" />
   <ui:style>
+    .avatar {
+		width: 32px;
+		height: 32px;
+    }
 	.status {
 	    float: left;
 	    margin-top: 3px;
@@ -18,10 +22,12 @@
       <p>
         <label><ui:msg key="statusLabelText">Status:</ui:msg></label>
         <div class="controls">
-          <g:Image  ui:field="icon" addStyleNames="icon" resource="{res.buddyIconOff}" />
+          <g:Image ui:field="icon" addStyleNames="icon" resource="{res.buddyIconOff}" />
           <g:Image ui:field="menu" addStyleNames="menu" resource="{res.menuIcon}" />
           <g:TextBox ui:field="status" styleName="{style.status}" />
         </div>
+        <br/>
+        <g:Image ui:field="avatar" addStyleNames="{style.avatar}" />
       </p>
     </div>
   </g:HTMLPanel>
