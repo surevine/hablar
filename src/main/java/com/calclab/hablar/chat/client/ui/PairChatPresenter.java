@@ -19,6 +19,7 @@ import com.calclab.hablar.core.client.mvp.HablarEventBus;
 import com.calclab.hablar.core.client.page.events.UserMessageEvent;
 import com.calclab.hablar.core.client.ui.menu.Action;
 import com.calclab.hablar.core.client.validators.Empty;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.icons.client.IconsBundle;
 import com.calclab.hablar.icons.client.PresenceIcon;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -32,13 +33,16 @@ public class PairChatPresenter extends ChatPresenter implements PairChatPage {
 
 	private final Chat chat;
 	private final String userName;
+	private final String avatarUrl;
 
-	public PairChatPresenter(final XmppRoster roster, final HablarEventBus eventBus, final Chat chat, final ChatDisplay display) {
-		super(TYPE, Idify.uriId(chat.getURI().toString()), eventBus, chat, display);
+	public PairChatPresenter(final XmppRoster roster, final HablarEventBus eventBus, final Chat chat, final ChatDisplay display,
+			final AvatarProviderRegistry registry) {
+		super(TYPE, Idify.uriId(chat.getURI().toString()), eventBus, chat, display, registry);
 		this.chat = chat;
 		display.setId(getId());
 		final XmppURI fromURI = chat.getURI();
 		userName = roster.getJidName(fromURI);
+		this.avatarUrl = registry.getFromMeta().getUrl(chat.getURI());
 
 		model.init(IconsBundle.bundle.buddyIconOff(), userName, userName + ": " + fromURI.toString());
 		setVisibility(Visibility.notFocused);
@@ -110,7 +114,7 @@ public class PairChatPresenter extends ChatPresenter implements PairChatPage {
 		final String messageBody = message.getBody();
 		if ((Type.error != message.getType()) && Empty.not(messageBody)) {
 			final Delay delay = DelayHelper.getDelay(message);
-			final ChatMessage chatMessage = new ChatMessage(userName, messageBody, ChatMessage.MessageType.incoming);
+			final ChatMessage chatMessage = new ChatMessage(userName, messageBody, ChatMessage.MessageType.incoming, avatarUrl);
 			chatMessage.color = ColorHelper.getColor(message.getFrom().getJID());
 			if (delay != null) {
 				chatMessage.setDate(delay.getStamp());

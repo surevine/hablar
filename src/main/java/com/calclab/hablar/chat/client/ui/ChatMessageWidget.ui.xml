@@ -2,6 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<g:HTMLPanel addStyleNames="chatMessage">
+		<g:Image ui:field="avatar" />
 		<span ui:field="metadata" class="metadata" />
 		<g:Label ui:field="author" styleName="author" />
 		<span ui:field="body" class="body" />

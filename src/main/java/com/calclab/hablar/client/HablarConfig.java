@@ -57,7 +57,9 @@ public class HablarConfig {
 			createTabHeaderSize(config);
 		}
 		
-		config.rosterConfig.avatarConfig = avatarProviderRegistry.getFromMeta();
+		if (avatarProviderRegistry != null) {
+			config.rosterConfig.avatarConfig = avatarProviderRegistry.getFromMeta();
+		}
 
 		config.roomsConfig = HablarRoomsConfig.getFromMeta();
 		config.rosterConfig = RosterConfig.getFromMeta();

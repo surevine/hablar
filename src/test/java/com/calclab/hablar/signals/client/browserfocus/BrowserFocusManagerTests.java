@@ -35,7 +35,7 @@ public class BrowserFocusManagerTests {
 	final UnattendedPagesManager manager = new UnattendedPagesManager(eventBus, handler);
 	new BrowserFocusManager(eventBus, manager, handler);
 	display = tester.newDisplay(ChatDisplay.class);
-	page = new ChatPresenter(PairChatPresenter.TYPE, "id", eventBus, Mockito.mock(Chat.class), display);
+	page = new ChatPresenter(PairChatPresenter.TYPE, "id", eventBus, Mockito.mock(Chat.class), display, null);
 	eventBus.fireEvent(new VisibilityChangedEvent(page, Visibility.focused));
     }
 

@@ -25,7 +25,7 @@ public class ChatPresenterTests {
 	tester = new HablarTester();
 	display = tester.newDisplay(ChatDisplay.class);
 	final Chat chat = Mockito.mock(Chat.class);
-	preseter = new ChatPresenter("test", "id", tester.eventBus, chat, display);
+	preseter = new ChatPresenter("test", "id", tester.eventBus, chat, display, null);
     }
 
     @Test

@@ -48,7 +48,7 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 		}
 		this.status.setVisible(hasStatus);
 		setIcon(PresenceIcon.get(item.isAvailable(), item.getShow()));
-		
+
 		avatar.setVisible(false);
 	}
 
@@ -57,7 +57,7 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 		self.ensureDebugId(Idify.id("RosterItemWidget", groupId, itemId));
 		// menu.addStyleName(HablarIcons.get(IconType.menu));
 		menu.ensureDebugId(Idify.id("RosterItemWidget", groupId, itemId, "roster-menu"));
-		
+
 		avatar.setVisible(false);
 	}
 
