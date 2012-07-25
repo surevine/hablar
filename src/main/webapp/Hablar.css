@@ -417,6 +417,11 @@ body {
 /** CHAT PAGE **/
 .hablar-ChatWidget .actions div {
 	float: right;
+	height: 24px;
+}
+
+.hablar-ChatWidget .actions div img {
+	vertical-align: middle;
 }
 
 /** SEARCH PAGE **/

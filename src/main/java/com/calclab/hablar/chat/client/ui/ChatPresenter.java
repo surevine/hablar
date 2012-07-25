@@ -12,6 +12,8 @@ import com.calclab.hablar.core.client.browser.BrowserFocusHandler;
 import com.calclab.hablar.core.client.mvp.HablarEventBus;
 import com.calclab.hablar.core.client.page.PagePresenter;
 import com.calclab.hablar.core.client.validators.Empty;
+import com.calclab.hablar.icons.client.AvatarConfig;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
 
@@ -26,12 +28,15 @@ public class ChatPresenter extends PagePresenter<ChatDisplay> implements ChatPag
 	private final ArrayList<ChatMessage> messages;
 	private String currentClass;
 	private String lastAuthor;
+	private AvatarConfig avatarConfig;
 
-	public ChatPresenter(final String pageType, final String id, final HablarEventBus eventBus, final Chat chat, final ChatDisplay display) {
+	public ChatPresenter(final String pageType, final String id, final HablarEventBus eventBus, final Chat chat, final ChatDisplay display,
+			final AvatarProviderRegistry registry) {
 		super(pageType, id, eventBus, display);
 		messages = new ArrayList<ChatMessage>();
 		this.currentClass = ODD;
 		this.lastAuthor = null;
+		this.avatarConfig = registry.getFromMeta();
 
 		display.getTextBoxFocus().addFocusHandler(new FocusHandler() {
 			@Override
@@ -78,7 +83,8 @@ public class ChatPresenter extends PagePresenter<ChatDisplay> implements ChatPag
 	protected void sendMessage(final Chat chat, final ChatDisplay display) {
 		final String text = display.getBody().getText().trim();
 		if (Empty.not(text)) {
-			final ChatMessage message = new ChatMessage("me", text, ChatMessage.MessageType.sent);
+			final ChatMessage message = new ChatMessage("me", text, ChatMessage.MessageType.sent,
+					avatarConfig.getUrl(chat.getSession().getCurrentUserURI()));
 			message.color = ColorHelper.ME;
 			message.setDate(new Date());
 			addMessage(message);
