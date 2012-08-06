@@ -604,3 +604,11 @@ body {
 .gwt-TextArea {
 	border: 1px solid #bbbbbb;
 }
+
+.hablar-Avatar {
+	border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+	width: 24px;
+	height: 24px;
+}
