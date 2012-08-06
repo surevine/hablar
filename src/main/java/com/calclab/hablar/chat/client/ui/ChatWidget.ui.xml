@@ -15,11 +15,6 @@
 			left: 3px;
 			right: 0px;
 		}
-		
-		.avatarPanel img {
-			width: 24px;
-			height: 24px;
-		}
 
 		.talkBox {
 		    width: 97%;

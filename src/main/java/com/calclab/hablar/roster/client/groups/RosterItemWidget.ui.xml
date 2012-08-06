@@ -19,15 +19,7 @@
 			margin-top: -4px !important;
 			margin-left: -4px !important;
 			margin-bottom: 0px !important;
-			width: 24px;
-			height: 24px;
 			position: relative;
-		}
-		
-		.avatar:hover {
-			z-index: 2147483647;
-			width: 64px;
-			height: 64px;
 		}
 		
 		.name {
@@ -64,8 +56,8 @@
 					ui:field="icon" />
 				<g:Image resource="{res.menuIcon}" ui:field="menu"
 					addStyleNames="menu" />
-				<span style="width: 24px; height: 24px; position: absolute">
-					<g:Image url="" ui:field="avatar" addStyleNames="icon {style.avatar}"/>
+				<span style="position: absolute; top: 4px">
+					<g:Image url="" ui:field="avatar" addStyleNames="icon hablar-Avatar {style.avatar}"/>
 				</span>
 				<div class="{style.dataOuter}">
 					<div class="{style.data} ellipsis" ui:field="data">

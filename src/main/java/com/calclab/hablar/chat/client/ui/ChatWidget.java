@@ -175,6 +175,7 @@ public class ChatWidget extends Composite implements ChatDisplay {
 			final Image image = new Image(url);
 			image.setWidth("24px");
 			image.setHeight("24px");
+			image.setStyleName("hablar-Avatar");
 			image.setTitle(title);
 			
 			avatarUrls.add(url);
