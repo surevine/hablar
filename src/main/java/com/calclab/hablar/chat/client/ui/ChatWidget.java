@@ -2,9 +2,10 @@ package com.calclab.hablar.chat.client.ui;
 
 import static com.google.gwt.dom.client.Style.Unit.PX;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.calclab.hablar.core.client.avatars.AvatarDisplay;
+import com.calclab.hablar.core.client.avatars.AvatarWidget;
 import com.calclab.hablar.core.client.ui.actions.ActionWidget;
 import com.calclab.hablar.core.client.ui.menu.Action;
 import com.google.gwt.core.client.GWT;
@@ -20,7 +21,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -40,12 +40,9 @@ public class ChatWidget extends Composite implements ChatDisplay {
 
 	private static final int STATUS_HEIGHT = 6;
 
+	private static final String AVATAR_SIZE = "tiny";
+
 	private static ChatWidgetUiBinder uiBinder = GWT.create(ChatWidgetUiBinder.class);
-	
-	/**
-	 * Maintains a list of the avatars displayed by their URL.
-	 */
-	private List<String> avatarUrls;
 
 	@UiField
 	protected TextArea talkBox;
@@ -68,8 +65,6 @@ public class ChatWidget extends Composite implements ChatDisplay {
 		initWidget(uiBinder.createAndBindUi(this));
 		controlsHeight = 0;
 		state.setVisible(false);
-		
-		avatarUrls = new ArrayList<String>();
 	}
 
 	@Override
@@ -170,34 +165,21 @@ public class ChatWidget extends Composite implements ChatDisplay {
 	}
 
 	@Override
-	public void addAvatar(final String title, final String url) {
-		if (!avatarUrls.contains(url)) {
-			final Image image = new Image(url);
-			image.setWidth("24px");
-			image.setHeight("24px");
-			image.setStyleName("hablar-Avatar");
-			image.setTitle(title);
-			
-			avatarUrls.add(url);
-			avatars.add(image);
-		}
+	public AvatarDisplay addAvatar(final String title) {
+		final AvatarWidget avatar = new AvatarWidget(AVATAR_SIZE);
+		avatar.setTitle(title);
+		
+		avatars.add(avatar);
+		return avatar;
 	}
 	
 	@Override
-	public void removeAvatar(final String url) {
-		final int idx = indexOf(avatarUrls, url);
-		
-		avatars.remove(idx);
-		avatarUrls.remove(idx);
+	public void removeAvatar(final AvatarDisplay avatar) {
+		avatars.remove(avatar);
 	}
 	
-	private static int indexOf(final List<String> source, final String target) {
-		for (int i = 0; i<source.size(); i++) {
-			if (source.get(i).equals(target)) {
-				return i;
-			}
-		}
-		
-		return -1;
+	@Override
+	public String getAvatarSize() {
+		return AVATAR_SIZE;
 	}
 }

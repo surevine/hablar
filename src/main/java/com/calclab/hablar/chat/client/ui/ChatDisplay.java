@@ -1,5 +1,6 @@
 package com.calclab.hablar.chat.client.ui;
 
+import com.calclab.hablar.core.client.avatars.AvatarDisplay;
 import com.calclab.hablar.core.client.mvp.Display;
 import com.calclab.hablar.core.client.ui.menu.Action;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -25,9 +26,9 @@ public interface ChatDisplay extends Display {
 	 */
 	void addToActions(Widget widget);
 	
-	void addAvatar(String title, String url);
+	AvatarDisplay addAvatar(String title);
 	
-	void removeAvatar(String url);
+	void removeAvatar(AvatarDisplay avatar);
 
 	void clearAndFocus();
 
@@ -54,4 +55,5 @@ public interface ChatDisplay extends Display {
 
 	void setTextBoxFocus(boolean hasFocus);
 
+	String getAvatarSize();
 }

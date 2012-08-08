@@ -42,7 +42,7 @@ public class PairChatPresenter extends ChatPresenter implements PairChatPage {
 		display.setId(getId());
 		final XmppURI fromURI = chat.getURI();
 		userName = roster.getJidName(fromURI);
-		this.avatarUrl = registry.getFromMeta().getUrl(chat.getURI());
+		this.avatarUrl = registry.getFromMeta().getUrl(chat.getURI(), display.getAvatarSize());
 
 		model.init(IconsBundle.bundle.buddyIconOff(), userName, userName + ": " + fromURI.toString());
 		setVisibility(Visibility.notFocused);

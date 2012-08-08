@@ -12,8 +12,8 @@ import com.calclab.emite.core.client.xmpp.stanzas.XmppURI;
 public class GravatarConfig implements AvatarConfig {
 
 	@Override
-	public String getUrl(final XmppURI xmppURI) {
-		return "http://gravatar.com/avatar/" + md5(xmppURI.getJID().toString()) +"?s=24&d=mm";
+	public String getUrl(final XmppURI xmppURI, final String size) {
+		return "http://gravatar.com/avatar/" + md5(xmppURI.getJID().toString()) +"?s=" + getSize(size) + "&d=mm";
 	}
 
 	private static String md5(String message) {
@@ -29,5 +29,19 @@ public class GravatarConfig implements AvatarConfig {
 		} catch (UnsupportedEncodingException e) {
 		}
 		return null;
+	}
+	
+	/**
+	 * Converts a string size (e.g. "tiny") into a width in pixels
+	 * TODO: This should be more generic somewhere (and possibly overrideable in config)
+	 * @param size a size description string
+	 * @return the width in pixels
+	 */
+	protected int getSize(final String size) {
+		if(size.equals("tiny")) {
+			return 16;
+		} else {
+			return 24;
+		}
 	}
 }

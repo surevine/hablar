@@ -2,6 +2,8 @@ package com.calclab.hablar.roster.client.groups;
 
 import com.calclab.emite.im.client.roster.RosterItem;
 import com.calclab.hablar.core.client.Idify;
+import com.calclab.hablar.core.client.avatars.AvatarDisplay;
+import com.calclab.hablar.core.client.avatars.AvatarWidget;
 import com.calclab.hablar.icons.client.PresenceIcon;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
@@ -30,7 +32,10 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 	Label name, jid, status;
 
 	@UiField
-	Image menu, icon, avatar;
+	Image menu, icon;
+	
+	@UiField
+	AvatarWidget avatar;
 	
 	@UiField
 	DivElement data;
@@ -48,8 +53,6 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 		}
 		this.status.setVisible(hasStatus);
 		setIcon(PresenceIcon.get(item.isAvailable(), item.getShow()));
-
-		avatar.setVisible(false);
 	}
 
 	public RosterItemWidget(final String groupId, final String itemId) {
@@ -57,8 +60,6 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 		self.ensureDebugId(Idify.id("RosterItemWidget", groupId, itemId));
 		// menu.addStyleName(HablarIcons.get(IconType.menu));
 		menu.ensureDebugId(Idify.id("RosterItemWidget", groupId, itemId, "roster-menu"));
-
-		avatar.setVisible(false);
 	}
 
 	@Override
@@ -97,13 +98,11 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 	}
 	
 	@Override
-	public void setAvatar(final String url) {
-		avatar.setUrl(url);
+	public void setAvatarUrl(final String url) {
+		avatar.setAvatarUrl(url);
 		
 		avatar.setVisible(true);
 		
-		data.getStyle().setPaddingLeft(65, Unit.PX);
-		data.getStyle().setLeft(-40, Unit.PX);
 	}
 
 	@Override
@@ -119,5 +118,24 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 	@Override
 	public void setWidgetTitle(final String title) {
 		self.setTitle(title);
+	}
+
+	@Override
+	public String getAvatarSize() {
+		return avatar.getSize();
+	}
+
+	@Override
+	public AvatarDisplay getAvatar() {
+		return avatar;
+	}
+	
+	@Override
+	public void setAvatarVisible(final boolean visible) {
+		avatar.setVisible(visible);
+		
+		if(visible) {
+			data.getStyle().setPaddingLeft(67, Unit.PX);
+		}
 	}
 }

@@ -18,6 +18,9 @@ import com.calclab.hablar.chat.client.ui.ChatWidget;
 import com.calclab.hablar.chat.client.ui.PairChatPage;
 import com.calclab.hablar.chat.client.ui.PairChatPresenter;
 import com.calclab.hablar.core.client.Hablar;
+import com.calclab.hablar.core.client.avatars.AvatarDisplay;
+import com.calclab.hablar.core.client.avatars.AvatarPresenter;
+import com.calclab.hablar.core.client.avatars.ZoomableAvatarPresenter;
 import com.calclab.hablar.core.client.mvp.HablarEventBus;
 import com.calclab.hablar.core.client.page.PagePresenter.Visibility;
 import com.calclab.hablar.icons.client.AvatarProviderRegistry;
@@ -138,7 +141,9 @@ public class HablarChatManager {
 		final ChatDisplay display = chatPageFactory.create(sendButtonVisible);
 		
 		if (registry != null && registry.getFromMeta() != null) {
-			display.addAvatar(item.getName(), registry.getFromMeta().getUrl(item.getJID()));
+			AvatarDisplay avatar = display.addAvatar(item.getName());
+			AvatarPresenter presenter = new ZoomableAvatarPresenter(avatar, registry.getFromMeta());
+			presenter.setJid(chat.getURI().getJID());
 		}
 		
 		final PairChatPresenter presenter = chatPresenterFactory.create(hablar.getEventBus(), chat, display);

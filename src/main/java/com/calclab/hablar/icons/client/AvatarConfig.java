@@ -4,5 +4,5 @@ import com.calclab.emite.core.client.xmpp.stanzas.XmppURI;
 
 public interface AvatarConfig {
 
-	String getUrl(XmppURI xmppURI);
+	String getUrl(XmppURI xmppURI, String size);
 }

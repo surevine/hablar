@@ -84,7 +84,7 @@ public class ChatPresenter extends PagePresenter<ChatDisplay> implements ChatPag
 		final String text = display.getBody().getText().trim();
 		if (Empty.not(text)) {
 			final ChatMessage message = new ChatMessage("me", text, ChatMessage.MessageType.sent,
-					avatarConfig.getUrl(chat.getSession().getCurrentUserURI()));
+					avatarConfig.getUrl(chat.getSession().getCurrentUserURI(), display.getAvatarSize()));
 			message.color = ColorHelper.ME;
 			message.setDate(new Date());
 			addMessage(message);

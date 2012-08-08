@@ -2,6 +2,8 @@ package com.calclab.hablar.roster.client.groups;
 
 import com.calclab.emite.core.client.xmpp.stanzas.Presence.Show;
 import com.calclab.emite.im.client.roster.RosterItem;
+import com.calclab.hablar.core.client.avatars.AvatarPresenter;
+import com.calclab.hablar.core.client.avatars.ZoomableAvatarPresenter;
 import com.calclab.hablar.core.client.mvp.Presenter;
 import com.calclab.hablar.core.client.ui.menu.Menu;
 import com.calclab.hablar.icons.client.AvatarConfig;
@@ -24,13 +26,16 @@ public class RosterItemPresenter implements Presenter<RosterItemDisplay> {
 	private String itemStatus;
 	private boolean itemIsAvailable;
 	private Show itemShow;
+	private AvatarPresenter avatarPresenter;
 
 	public RosterItemPresenter(final String groupName, final Menu<RosterItemPresenter> itemMenu, final RosterItemDisplay display,
 			final RosterConfig rosterConfig) {
 		this.groupName = groupName;
 		this.display = display;
 		this.avatarConfig = rosterConfig.avatarConfig;
-
+		
+		avatarPresenter = new ZoomableAvatarPresenter(display.getAvatar(), avatarConfig);
+		
 		this.clickActionDescription = "";
 		if (rosterConfig.rosterItemClickAction != null) {
 			this.clickActionDescription = rosterConfig.rosterItemClickAction.getDescription() + " ";
@@ -128,7 +133,8 @@ public class RosterItemPresenter implements Presenter<RosterItemDisplay> {
 			// display.setColor(ColorHelper.getColor(item.getJID()));
 			
 			if (avatarConfig != null) {
-				display.setAvatar(avatarConfig.getUrl(item.getJID()));
+				avatarPresenter.setJid(item.getJID());
+				display.setAvatarVisible(true);
 			}
 		}
 
