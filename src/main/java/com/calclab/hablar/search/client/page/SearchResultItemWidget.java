@@ -1,5 +1,6 @@
 package com.calclab.hablar.search.client.page;
 
+import com.calclab.hablar.core.client.avatars.AvatarWidget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -21,7 +22,10 @@ public class SearchResultItemWidget extends Composite implements SearchResultIte
 	Label name, jid;
 
 	@UiField
-	Image buddyIcon, menu, avatar;
+	Image buddyIcon, menu;
+	
+	@UiField
+	AvatarWidget avatar;
 
 	public SearchResultItemWidget(final String itemId) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -59,7 +63,12 @@ public class SearchResultItemWidget extends Composite implements SearchResultIte
 	}
 	
 	@Override
-	public void setAvatar(final String url) {
-		this.avatar.setUrl(url);
+	public void setAvatarUrl(final String url) {
+		this.avatar.setAvatarUrl(url);
+	}
+
+	@Override
+	public String getAvatarSize() {
+		return avatar.getSize();
 	}
 }

@@ -2,6 +2,7 @@ package com.calclab.hablar.chat.client.ui;
 
 import com.calclab.hablar.chat.client.ui.ChatMessage.MessageType;
 import com.calclab.hablar.chat.client.ui.chatmessageformat.ChatMessageFormatter;
+import com.calclab.hablar.core.client.avatars.AvatarWidget;
 import com.calclab.hablar.core.client.validators.Empty;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -10,7 +11,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -29,7 +29,7 @@ public class ChatMessageWidget extends Composite {
 	@UiField
 	Label author;
 	@UiField
-	Image avatar;
+	AvatarWidget avatar;
 
 	public ChatMessageWidget(final ChatMessage message) {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -53,9 +53,10 @@ public class ChatMessageWidget extends Composite {
 		body.addClassName(type.toString());
 		
 		if (message.avatarUrl != null) {
-			avatar.setUrl(message.avatarUrl);
-			avatar.setHeight("32px");
+			avatar.setVisible(true);
+			avatar.setAvatarUrl(message.avatarUrl);
+		} else {
+			avatar.setVisible(false);
 		}
-		avatar.setWidth("32px");
 	}
 }

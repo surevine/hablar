@@ -1,5 +1,6 @@
 package com.calclab.hablar.roster.client.groups;
 
+import com.calclab.hablar.core.client.avatars.AvatarDisplay;
 import com.calclab.hablar.core.client.mvp.Display;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.resources.client.ImageResource;
@@ -29,5 +30,11 @@ public interface RosterItemDisplay extends Display {
 
 	void setWidgetTitle(String title);
 
-	void setAvatar(String url);
+	void setAvatarUrl(String url);
+	
+	String getAvatarSize();
+
+	AvatarDisplay getAvatar();
+
+	void setAvatarVisible(boolean visible);
 }

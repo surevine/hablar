@@ -9,6 +9,7 @@ import com.calclab.emite.core.client.xmpp.stanzas.XmppURI;
 import com.calclab.emite.im.client.chat.Chat;
 import com.calclab.emite.im.client.chat.events.ChatChangedEvent;
 import com.calclab.emite.im.client.chat.events.ChatChangedHandler;
+import com.calclab.emite.im.client.roster.RosterItem;
 import com.calclab.emite.im.client.roster.XmppRoster;
 import com.calclab.emite.xep.muc.client.Room;
 import com.calclab.emite.xep.muc.client.RoomInvitation;
@@ -19,6 +20,9 @@ import com.calclab.emite.xep.muc.client.events.RoomInvitationEvent;
 import com.calclab.emite.xep.muc.client.events.RoomInvitationHandler;
 import com.calclab.hablar.chat.client.ui.ChatMessage;
 import com.calclab.hablar.core.client.Hablar;
+import com.calclab.hablar.core.client.avatars.AvatarDisplay;
+import com.calclab.hablar.core.client.avatars.AvatarPresenter;
+import com.calclab.hablar.core.client.avatars.ZoomableAvatarPresenter;
 import com.calclab.hablar.core.client.mvp.HablarEventBus;
 import com.calclab.hablar.core.client.page.PagePresenter.Visibility;
 import com.calclab.hablar.icons.client.AvatarProviderRegistry;
@@ -30,6 +34,8 @@ import com.google.inject.Inject;
 public class HablarRoomManager {
 	
 	private AvatarProviderRegistry registry;
+	
+	private HashMap<XmppURI,AvatarPresenter> avatars = new HashMap<XmppURI,AvatarPresenter>();
 
 	public static interface RoomPageFactory {
 		RoomDisplay create(boolean sendButtonVisible);
@@ -44,14 +50,16 @@ public class HablarRoomManager {
 	private final RoomPresenterFactory presenterFactory;
 	private final HashMap<XmppURI, RoomPresenter> roomPages;
 	private final ArrayList<RoomInvitation> acceptedInvitations;
+	private final XmppRoster roster;
 
 	@Inject
 	public HablarRoomManager(final RoomManager rooms, final Hablar hablar, final HablarRoomsConfig config, final RoomPageFactory factory,
-			final RoomPresenterFactory presenterFactory, final AvatarProviderRegistry registry) {
+			final RoomPresenterFactory presenterFactory, final AvatarProviderRegistry registry, final XmppRoster roster) {
 		this.hablar = hablar;
 		this.factory = factory;
 		this.presenterFactory = presenterFactory;
 		this.registry = registry;
+		this.roster = roster;
 		acceptedInvitations = new ArrayList<RoomInvitation>();
 		roomPages = new HashMap<XmppURI, RoomPresenter>();
 
@@ -88,7 +96,7 @@ public class HablarRoomManager {
 			public RoomPresenter create(final HablarEventBus eventBus, final Room room, final RoomDisplay display) {
 				return new RoomPresenter(session, roster, eventBus, room, display, registry);
 			}
-		}, registry);
+		}, registry, roster);
 	}
 
 	protected void createRoom(final Room room) {
@@ -101,9 +109,30 @@ public class HablarRoomManager {
 			@Override
 			public void onOccupantChanged(final OccupantChangedEvent event) {
 				if (event.getChangeType().equals(ChangeTypes.added)) {
-					display.addAvatar(event.getOccupant().getNick(), registry.getFromMeta().getUrl(event.getOccupant().getJID()));
+					if(!avatars.containsKey(event.getOccupant().getJID())) {
+						XmppURI jid = event.getOccupant().getJID();
+						
+						String nameString = event.getOccupant().getNick();
+						
+						if(jid != null) {
+							RosterItem item = roster.getItemByJID(jid);
+							
+							if(item != null) {
+								nameString = item.getName() + " (" + nameString + ")";
+							}
+						}
+						
+						AvatarDisplay avatarDisplay = display.addAvatar(nameString);
+						AvatarPresenter avatarPres = new ZoomableAvatarPresenter(avatarDisplay, registry.getFromMeta());
+						avatarPres.setJid(event.getOccupant().getJID());
+						avatars.put(event.getOccupant().getJID(), avatarPres);
+					}
 				} else if (event.getChangeType().equals(ChangeTypes.removed)) {
-					display.removeAvatar(registry.getFromMeta().getUrl(event.getOccupant().getJID()));
+					AvatarPresenter pres = avatars.get(event.getOccupant().getJID());
+					if(pres != null) {
+						display.removeAvatar(pres.getDisplay());
+						avatars.remove(event.getOccupant().getJID());
+					}
 				} // We're only interested in add and remove events, AFAIK.
 			}
 		});

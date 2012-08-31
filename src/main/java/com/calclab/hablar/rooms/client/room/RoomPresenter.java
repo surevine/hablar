@@ -87,7 +87,7 @@ public class RoomPresenter extends ChatPresenter implements RoomPage {
 					final String messageBody = message.getBody();
 					if (Empty.not(messageBody)) {
 						final ChatMessage chatMessage = new ChatMessage(from, messageBody, ChatMessage.MessageType.incoming,
-								occupant == null ? null : avatarConfig.getUrl(occupant.getJID()));
+								occupant == null ? null : avatarConfig.getUrl(occupant.getJID(), display.getAvatarSize()));
 						if (occupant != null) {
 							chatMessage.color = ColorHelper.getColor(occupant.getJID());
 						} else {
