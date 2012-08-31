@@ -9,6 +9,8 @@ import com.calclab.emite.core.client.xmpp.stanzas.XmppURI;
 import com.calclab.emite.xep.search.client.SearchManager;
 import com.calclab.emite.xep.search.client.SearchResultItem;
 import com.calclab.hablar.core.client.Idify;
+import com.calclab.hablar.core.client.avatars.AvatarPresenter;
+import com.calclab.hablar.core.client.avatars.ZoomableAvatarPresenter;
 import com.calclab.hablar.core.client.mvp.HablarEventBus;
 import com.calclab.hablar.core.client.page.PagePresenter;
 import com.calclab.hablar.core.client.ui.menu.Menu;
@@ -106,6 +108,10 @@ public class SearchPage extends PagePresenter<SearchDisplay> {
 							final SearchResultItemDisplay itemDisplay = display.newSearchResultItemDisplay(Idify.id(item.getJid()));
 							new SearchResultItemPresenter(item, itemMenu, itemDisplay);
 							itemDisplay.setAvatarUrl(registry.getFromMeta().getUrl(item.getJid(), itemDisplay.getAvatarSize()));
+
+							AvatarPresenter presenter = new ZoomableAvatarPresenter(itemDisplay.getAvatar(), registry.getFromMeta());
+							presenter.setJid(item.getJid());
+							
 							display.addResult(itemDisplay);
 						}
 					}
