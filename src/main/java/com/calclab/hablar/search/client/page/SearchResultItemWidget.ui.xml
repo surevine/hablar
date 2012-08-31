@@ -5,10 +5,7 @@
 	<ui:with type="com.calclab.hablar.icons.client.IconsBundle" field="res" />
     <ui:style>
     	.avatar {
-			width: 24px;
-			height: 24px;
 			margin-top: -4px !important;
-			border-radius: 5px;
 		}
         .userWidget {
 		    width: 100%;

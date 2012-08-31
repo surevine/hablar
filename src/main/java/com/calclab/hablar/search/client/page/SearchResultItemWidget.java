@@ -71,4 +71,9 @@ public class SearchResultItemWidget extends Composite implements SearchResultIte
 	public String getAvatarSize() {
 		return avatar.getSize();
 	}
+	
+	@Override
+	public AvatarWidget getAvatar() {
+		return avatar;
+	}
 }
