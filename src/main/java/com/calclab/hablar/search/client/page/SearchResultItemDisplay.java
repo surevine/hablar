@@ -19,9 +19,9 @@ public interface SearchResultItemDisplay extends Display {
 
 	HasClickHandlers getClickableName();
 	
-	void setAvatarUrl(String url);
+//	void setAvatarUrl(String url);
 	
-	String getAvatarSize();
+//	String getAvatarSize();
 
 	AvatarWidget getAvatar();
 }

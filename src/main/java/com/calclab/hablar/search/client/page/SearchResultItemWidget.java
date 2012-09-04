@@ -62,15 +62,15 @@ public class SearchResultItemWidget extends Composite implements SearchResultIte
 		return name;
 	}
 	
-	@Override
-	public void setAvatarUrl(final String url) {
-		this.avatar.setAvatarUrl(url);
-	}
+//	@Override
+//	public void setAvatarUrl(final String url) {
+//		this.avatar.setAvatarUrl(url);
+//	}
 
-	@Override
-	public String getAvatarSize() {
-		return avatar.getSize();
-	}
+//	@Override
+//	public String getAvatarSize() {
+//		return avatar.getSize();
+//	}
 	
 	@Override
 	public AvatarWidget getAvatar() {

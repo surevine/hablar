@@ -107,7 +107,6 @@ public class SearchPage extends PagePresenter<SearchDisplay> {
 							resultCount++;
 							final SearchResultItemDisplay itemDisplay = display.newSearchResultItemDisplay(Idify.id(item.getJid()));
 							new SearchResultItemPresenter(item, itemMenu, itemDisplay);
-							itemDisplay.setAvatarUrl(registry.getFromMeta().getUrl(item.getJid(), itemDisplay.getAvatarSize()));
 
 							AvatarPresenter presenter = new ZoomableAvatarPresenter(itemDisplay.getAvatar(), registry.getFromMeta());
 							presenter.setJid(item.getJid());
