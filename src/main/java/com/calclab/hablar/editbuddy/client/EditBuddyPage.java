@@ -7,6 +7,7 @@ import com.calclab.hablar.core.client.page.PagePresenter;
 import com.calclab.hablar.core.client.validators.TextValidator;
 import com.calclab.hablar.core.client.validators.Validators;
 import com.calclab.hablar.editbuddy.client.ui.EditBuddyDisplay;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
@@ -55,7 +56,11 @@ public class EditBuddyPage extends PagePresenter<EditBuddyDisplay> {
 		final String nickName = currentItem.getName();
 		display.getOldNickName().setText(nickName);
 		display.getNickName().setText("");
-		display.getFirstFocusable().setFocus(true);
+		Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand () {
+	        public void execute () {
+	    		display.getFirstFocusable().setFocus(true);
+	        }
+	    });
 		nickNameValidator.validate();
 	}
 
