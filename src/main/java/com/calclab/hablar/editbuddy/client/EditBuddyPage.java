@@ -56,8 +56,6 @@ public class EditBuddyPage extends PagePresenter<EditBuddyDisplay> {
 		final String nickName = currentItem.getName();
 		display.getOldNickName().setText(nickName);
 		display.getNickName().setText("");
-		
-		// Get around synchronisation issue about widget load time
 		Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand () {
 	        public void execute () {
 	    		display.getFirstFocusable().setFocus(true);
