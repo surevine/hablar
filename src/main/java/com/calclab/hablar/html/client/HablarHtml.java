@@ -82,7 +82,7 @@ public class HablarHtml implements EntryPoint {
 		new HablarCore(hablar);
 		new HablarChat(hablar, config.chatConfig, roster, chatManager, ginjector.getStateManager(), registry);
 		new HablarRooms(hablar, config.roomsConfig, session, roster, roomManager, ginjector.getRoomDiscoveryManager(), ginjector.getMUCChatStateManager(), registry);
-		new HablarGroupChat(hablar, config.roomsConfig, session, roster, chatManager, roomManager);
+		new HablarGroupChat(hablar, config.roomsConfig, session, roster, chatManager, roomManager, ginjector.getAvatarProviderRegistry());
 		new HablarDock(hablar, config.dockConfig);
 		new HablarUser(hablar, session, ginjector.getPresenceManager(), ginjector.getPrivateStorageManager());
 
@@ -101,7 +101,7 @@ public class HablarHtml implements EntryPoint {
 			new HablarOpenChat(hablar, session, roster, chatManager);
 			new HablarEditBuddy(hablar, roster);
 			new HablarUserGroups(rosterPage, hablar, roster);
-			new HablarGroup(hablar, session, roster);
+			new HablarGroup(hablar, session, roster, ginjector.getAvatarProviderRegistry());
 			hablarRoster.addLowPriorityActions();
 		}
 

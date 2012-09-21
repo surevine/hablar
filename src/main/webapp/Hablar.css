@@ -66,6 +66,12 @@ div.hablar-SearchResultItemWidget:hover {
 	background-color: #e9e9e9;
 }
 
+.hablar-SearchResultItemWidget .hablar-avatar {
+	display: block;
+	float: left;
+	margin: -2px 5px 0px 0px;
+}
+
 .hablar-ChatWidget .actions div.hablar-OccupantsWidget:hover {
 	background-color: #BBBBBB;
 	color: white;
@@ -598,7 +604,8 @@ body {
 	-o-text-overflow: ellipsis;
 	-ms-text-overflow: ellipsis;
 	-moz-binding: url('ellipsis.xml#ellipsis');
-	width: 100%
+	width: 100%;
+	margin-left: 24px;
 }
 
 .gwt-TextArea {
@@ -622,6 +629,8 @@ body {
 	box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
 	width: 24px;
 	height: 24px;
+	display: block;
+	background-color: red; /* TODO: Replace with bg image of silouhette */
 }
 
 .hablar-avatar-medium img {
@@ -638,7 +647,12 @@ body {
 	height: 100px;
 }
 
+.avatarPanel {
+	float: left;
+}
+
 .avatarPanel .hablar-avatar {
+	float: left;
 	margin-right: 1px;
 }
 

@@ -11,6 +11,7 @@ import com.calclab.hablar.core.client.ui.menu.SimpleAction;
 import com.calclab.hablar.group.client.manage.CreateGroupPresenter;
 import com.calclab.hablar.group.client.manage.ManageGroupWidget;
 import com.calclab.hablar.group.client.manage.ModifyGroupPresenter;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.icons.client.IconsBundle;
 import com.calclab.hablar.roster.client.groups.RosterGroupPresenter;
 import com.calclab.hablar.roster.client.page.RosterPage;
@@ -27,12 +28,14 @@ public class HablarGroup {
 	private final Hablar hablar;
 	private final XmppSession session;
 	private final XmppRoster roster;
+	private final AvatarProviderRegistry registry;
 
 	@Inject
-	public HablarGroup(final Hablar hablar, final XmppSession session, final XmppRoster roster) {
+	public HablarGroup(final Hablar hablar, final XmppSession session, final XmppRoster roster, final AvatarProviderRegistry registry) {
 		this.hablar = hablar;
 		this.session = session;
 		this.roster = roster;
+		this.registry = registry;
 
 		final CreateGroupPresenter createGrouppresenter = newCreateGroupPresenter();
 		final ModifyGroupPresenter modifyGroupPresenter = newModifyGroupPresenter();
@@ -69,7 +72,7 @@ public class HablarGroup {
 	}
 
 	private CreateGroupPresenter newCreateGroupPresenter() {
-		return new CreateGroupPresenter(session, roster, hablar.getEventBus(), new ManageGroupWidget(), GroupMessages.msg.createNewGroup());
+		return new CreateGroupPresenter(session, roster, hablar.getEventBus(), new ManageGroupWidget(registry), GroupMessages.msg.createNewGroup());
 	}
 
 	/**
@@ -92,7 +95,7 @@ public class HablarGroup {
 	}
 
 	private ModifyGroupPresenter newModifyGroupPresenter() {
-		return new ModifyGroupPresenter(roster, hablar.getEventBus(), new ManageGroupWidget(), GroupMessages.msg.modifyGroup());
+		return new ModifyGroupPresenter(roster, hablar.getEventBus(), new ManageGroupWidget(registry), GroupMessages.msg.modifyGroup());
 	}
 
 }

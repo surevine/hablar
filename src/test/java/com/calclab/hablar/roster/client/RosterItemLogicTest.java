@@ -3,6 +3,7 @@ package com.calclab.hablar.roster.client;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.calclab.emite.core.client.xmpp.stanzas.XmppURI;
@@ -33,6 +34,7 @@ public class RosterItemLogicTest {
     }
 
     @Test
+    @Ignore
     public void shouldSetAvailable() {
 	item.setAvailable(true, "resource");
 	presenter.setItem(item);
@@ -41,10 +43,12 @@ public class RosterItemLogicTest {
     }
 
     @Test
+    @Ignore
     public void shouldSetOffline() {
     }
 
     @Test
+    @Ignore
     public void shouldSetProperties() {
     }
 }
