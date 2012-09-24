@@ -140,8 +140,11 @@ public class HablarChatManager {
 		final RosterItem item = roster.getItemByJID(chat.getURI().getJID());
 		final ChatDisplay display = chatPageFactory.create(sendButtonVisible);
 		
+		// The roster item may be null if chat was initiated externally.
+		final String avatarTitle = item != null ? item.getName() : chat.getURI().getJID().getHost();
+		
 		if (registry != null && registry.getFromMeta() != null) {
-			AvatarDisplay avatar = display.addAvatar(item.getName());
+			AvatarDisplay avatar = display.addAvatar(avatarTitle);
 			AvatarPresenter presenter = new ZoomableAvatarPresenter(avatar, registry.getFromMeta());
 			presenter.setJid(chat.getURI().getJID());
 		}
