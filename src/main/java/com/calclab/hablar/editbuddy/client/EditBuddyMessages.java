@@ -23,6 +23,6 @@ public interface EditBuddyMessages extends Messages {
 	@DefaultMessage("Change to:")
 	String changeToLabelText();
 
-	@DefaultMessage("Nick name can''t be empty")
+	@DefaultMessage("Nickname can''t be empty")
 	String nickNameEmpty();
 }

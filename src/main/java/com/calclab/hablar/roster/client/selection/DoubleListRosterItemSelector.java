@@ -5,7 +5,11 @@ import java.util.Collection;
 import java.util.List;
 
 import com.calclab.emite.im.client.roster.RosterItem;
+import com.calclab.hablar.core.client.avatars.AvatarPresenter;
+import com.calclab.hablar.core.client.avatars.ZoomableAvatarPresenter;
 import com.calclab.hablar.core.client.ui.selectionlist.DoubleList;
+import com.calclab.hablar.icons.client.AvatarConfig;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.roster.client.RosterMessages;
 import com.calclab.hablar.roster.client.groups.RosterItemWidget;
 
@@ -16,9 +20,13 @@ import com.calclab.hablar.roster.client.groups.RosterItemWidget;
 public class DoubleListRosterItemSelector implements RosterItemSelector {
 
 	private DoubleList selectionList;
-
-	public DoubleListRosterItemSelector(DoubleList selectionList) {
+	private final AvatarProviderRegistry registry;
+	
+	public DoubleListRosterItemSelector(DoubleList selectionList, final AvatarProviderRegistry registry) {
 		this.selectionList = selectionList;
+			
+		this.registry = registry;
+		
 		selectionList.setAvailableLabelText(RosterMessages.msg.availableUsersLabelText());
 		selectionList.setSelectedLabelText(RosterMessages.msg.selectedUsersLabelText());
 		selectionList.setSelectAllTooltip(RosterMessages.msg.selectAllTooltip());
@@ -29,7 +37,12 @@ public class DoubleListRosterItemSelector implements RosterItemSelector {
 
 	@Override
 	public void addRosterItem(RosterItem rosterItem) {
+		
 		RosterItemWidget widget = new RosterItemWidget("selection", rosterItem);
+		
+		AvatarPresenter presenter = new ZoomableAvatarPresenter(widget.getAvatar(), registry.getFromMeta());
+		presenter.setJid(rosterItem.getJID());
+		
 		widget.setMenuVisible(false);
 		RosterItemSelectable selectable = new RosterItemSelectable(rosterItem, widget);
 		selectionList.add(selectable);
@@ -37,7 +50,12 @@ public class DoubleListRosterItemSelector implements RosterItemSelector {
 
 	@Override
 	public void addSelectedRosterItem(RosterItem rosterItem) {
+		
 		RosterItemWidget widget = new RosterItemWidget("selection", rosterItem);
+		
+		AvatarPresenter presenter = new ZoomableAvatarPresenter(widget.getAvatar(), registry.getFromMeta());
+		presenter.setJid(rosterItem.getJID());
+		
 		widget.setMenuVisible(false);
 		RosterItemSelectable selectable = new RosterItemSelectable(rosterItem, widget);
 		selectionList.addSelected(selectable);

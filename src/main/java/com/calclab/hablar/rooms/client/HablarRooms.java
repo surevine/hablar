@@ -34,11 +34,11 @@ public class HablarRooms {
 			final RoomDiscoveryManager roomDiscoveryManager, final MUCChatStateManager mucChatStateManager, final AvatarProviderRegistry registry) {
 		new HablarRoomManager(session, roster, roomManager, hablar, config, registry);
 
-		final InviteToRoomPresenter invitePage = new InviteToRoomPresenter(roster, hablar.getEventBus(), new EditRoomWidget());
+		final InviteToRoomPresenter invitePage = new InviteToRoomPresenter(roster, hablar.getEventBus(), new EditRoomWidget(registry));
 		hablar.addPage(invitePage, OverlayContainer.ROL);
 
 		final OpenNewRoomPresenter openNewRoomPage = new OpenNewRoomPresenter(session, roster, roomManager, config.roomsService, hablar.getEventBus(),
-				new EditRoomWidget());
+				new EditRoomWidget(registry));
 		hablar.addPage(openNewRoomPage, OverlayContainer.ROL);
 
 		final OpenExistingRoomPresenter openExistingRoomPresenter = new OpenExistingRoomPresenter(session, roomManager, roomDiscoveryManager,

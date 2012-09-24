@@ -109,24 +109,24 @@ public class HablarRoomManager {
 			@Override
 			public void onOccupantChanged(final OccupantChangedEvent event) {
 				if (event.getChangeType().equals(ChangeTypes.added)) {
-					if(!avatars.containsKey(event.getOccupant().getJID())) {
-						XmppURI jid = event.getOccupant().getJID();
+					
+					XmppURI jid = event.getOccupant().getJID();
+					
+					String nameString = event.getOccupant().getNick();
+					
+					if(jid != null) {
+						RosterItem item = roster.getItemByJID(jid);
 						
-						String nameString = event.getOccupant().getNick();
-						
-						if(jid != null) {
-							RosterItem item = roster.getItemByJID(jid);
-							
-							if(item != null) {
-								nameString = item.getName() + " (" + nameString + ")";
-							}
+						if(item != null) {
+							nameString = item.getName() + " (" + nameString + ")";
 						}
-						
-						AvatarDisplay avatarDisplay = display.addAvatar(nameString);
-						AvatarPresenter avatarPres = new ZoomableAvatarPresenter(avatarDisplay, registry.getFromMeta());
-						avatarPres.setJid(event.getOccupant().getJID());
-						avatars.put(event.getOccupant().getJID(), avatarPres);
 					}
+					
+					AvatarDisplay avatarDisplay = display.addAvatar(nameString);
+					AvatarPresenter avatarPres = new ZoomableAvatarPresenter(avatarDisplay, registry.getFromMeta());
+					avatarPres.setJid(event.getOccupant().getJID());
+					avatars.put(event.getOccupant().getJID(), avatarPres);
+						
 				} else if (event.getChangeType().equals(ChangeTypes.removed)) {
 					AvatarPresenter pres = avatars.get(event.getOccupant().getJID());
 					if(pres != null) {

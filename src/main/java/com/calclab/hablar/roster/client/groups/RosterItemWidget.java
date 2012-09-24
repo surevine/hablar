@@ -133,9 +133,5 @@ public class RosterItemWidget extends Composite implements RosterItemDisplay {
 	@Override
 	public void setAvatarVisible(final boolean visible) {
 		avatar.setVisible(visible);
-		
-		if(visible) {
-			data.getStyle().setPaddingLeft(67, Unit.PX);
-		}
 	}
 }

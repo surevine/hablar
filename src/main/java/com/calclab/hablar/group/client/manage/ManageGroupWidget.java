@@ -7,6 +7,7 @@ import com.calclab.emite.im.client.roster.RosterItem;
 import com.calclab.hablar.core.client.ui.selectionlist.DoubleList;
 import com.calclab.hablar.core.client.ui.selectionlist.Selectable;
 import com.calclab.hablar.core.client.validators.HasState;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.roster.client.selection.DoubleListRosterItemSelector;
 import com.calclab.hablar.roster.client.selection.RosterItemSelector;
 import com.google.gwt.core.client.GWT;
@@ -49,9 +50,9 @@ public class ManageGroupWidget extends Composite implements ManageGroupDisplay {
 
 	private RosterItemSelector selector;
 
-	public ManageGroupWidget() {
+	public ManageGroupWidget(final AvatarProviderRegistry registry) {
 		initWidget(uiBinder.createAndBindUi(this));
-		selector = new DoubleListRosterItemSelector(selectionList);
+		selector = new DoubleListRosterItemSelector(selectionList, registry);
 	}
 
 	@Override

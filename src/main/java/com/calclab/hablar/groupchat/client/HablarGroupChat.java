@@ -14,6 +14,7 @@ import com.calclab.hablar.core.client.container.PageAddedHandler;
 import com.calclab.hablar.core.client.container.overlay.OverlayContainer;
 import com.calclab.hablar.core.client.page.PagePresenter.Visibility;
 import com.calclab.hablar.core.client.ui.menu.SimpleAction;
+import com.calclab.hablar.icons.client.AvatarProviderRegistry;
 import com.calclab.hablar.icons.client.IconsBundle;
 import com.calclab.hablar.rooms.client.HablarRoomsConfig;
 import com.calclab.hablar.rooms.client.open.EditRoomWidget;
@@ -35,15 +36,17 @@ public class HablarGroupChat {
 	private final XmppRoster roster;
 	private final ChatManager chatManager;
 	private final HablarRoomsConfig config;
+	private final AvatarProviderRegistry registry;
 
 	public HablarGroupChat(final Hablar hablar, final HablarRoomsConfig config, final XmppSession session, final XmppRoster roster,
-			final ChatManager chatManager, final RoomManager roomManager) {
+			final ChatManager chatManager, final RoomManager roomManager, final AvatarProviderRegistry registry) {
 		this.hablar = hablar;
 		this.config = config;
 		this.session = session;
 		this.roster = roster;
 		this.chatManager = chatManager;
 		this.roomManager = roomManager;
+		this.registry = registry;
 		install();
 	}
 
@@ -80,7 +83,7 @@ public class HablarGroupChat {
 	}
 
 	public ConvertToGroupChatPresenter newConvertToGroupChatPresenter(final String roomsService) {
-		return new ConvertToGroupChatPresenter(session, roster, chatManager, roomManager, roomsService, hablar.getEventBus(), new EditRoomWidget());
+		return new ConvertToGroupChatPresenter(session, roster, chatManager, roomManager, roomsService, hablar.getEventBus(), new EditRoomWidget(registry));
 	}
 
 	private SimpleAction<RosterGroupPresenter> newOpenGroupChatAction(final OpenGroupChatPresenter openGroupPage) {
@@ -94,7 +97,7 @@ public class HablarGroupChat {
 	}
 
 	public OpenGroupChatPresenter newOpenGroupChatPresenter(final String roomsService) {
-		return new OpenGroupChatPresenter(session, roomManager, roster, roomsService, hablar.getEventBus(), new EditRoomWidget());
+		return new OpenGroupChatPresenter(session, roomManager, roster, roomsService, hablar.getEventBus(), new EditRoomWidget(registry));
 	}
 
 }
