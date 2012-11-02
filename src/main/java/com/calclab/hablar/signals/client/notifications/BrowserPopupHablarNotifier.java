@@ -228,7 +228,13 @@ public class BrowserPopupHablarNotifier implements HablarNotifier {
 			// one browser instance
 			var windowHandle = "chatNotifierPopup" + Math.floor(Math.random() * 1000000);
 			
-			$wnd.toasterWindow = $wnd.open("", windowHandle, "status=no,toolbar=no,location=yes,menubar=no,directories=no,resizable=yes,width="+width+",height="+height+",left="+left+",top="+top+",alwaysRaised=yes,scrollbars=yes");
+			var url = "popup.html";
+			
+			if($doc.domain) {
+				url += '?d=' + $doc.domain;
+			}
+			
+			$wnd.toasterWindow = $wnd.open(url, windowHandle, "status=no,toolbar=no,location=yes,menubar=no,directories=no,resizable=yes,width="+width+",height="+height+",left="+left+",top="+top+",alwaysRaised=yes,scrollbars=yes");
 			
 			if($wnd.toasterWindow == null) {
 				// Popups must be blocked :(
