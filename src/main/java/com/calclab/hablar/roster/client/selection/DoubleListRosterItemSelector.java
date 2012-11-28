@@ -50,15 +50,7 @@ public class DoubleListRosterItemSelector implements RosterItemSelector {
 
 	@Override
 	public void addSelectedRosterItem(RosterItem rosterItem) {
-		
-		RosterItemWidget widget = new RosterItemWidget("selection", rosterItem);
-		
-		AvatarPresenter presenter = new ZoomableAvatarPresenter(widget.getAvatar(), registry.getFromMeta());
-		presenter.setJid(rosterItem.getJID());
-		
-		widget.setMenuVisible(false);
-		RosterItemSelectable selectable = new RosterItemSelectable(rosterItem, widget);
-		selectionList.addSelected(selectable);
+		addRosterItem(rosterItem);
 	}
 
 	@Override

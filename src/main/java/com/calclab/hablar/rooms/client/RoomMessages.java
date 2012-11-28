@@ -45,7 +45,7 @@ public interface RoomMessages extends Messages {
 	String inviteToThisGroupChat();
 
 	@DefaultMessage("The group name has invalid characters")
-	String notValidGroupChatName();
+	String invalidGroupChatName();
 
 	@DefaultMessage("''{0}'' has joined the conversation")
 	String occupantHasJoined(String nick);
