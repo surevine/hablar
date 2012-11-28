@@ -14,49 +14,49 @@ public class BrowserPopupHablarNotifier implements HablarNotifier {
 	/**
 	 * The time (in milliseconds) to display each message (10s)
 	 */
-	private static final int POPUP_MESSAGE_TIMER_MILLIS = 10000;
+	protected static final int POPUP_MESSAGE_TIMER_MILLIS = 10000;
 
 	/**
 	 * The width (in pixels) for the popup
 	 */
-	private static final int POPUP_WIDTH = 300;
+	protected static final int POPUP_WIDTH = 300;
 
 	/**
 	 * The height (in pixels) that each message should be Note - this needs to
 	 * match the setting in the Hablar.css file
 	 */
-	private static final int POPUP_MESSAGE_HEIGHT = 40;
+	protected static final int POPUP_MESSAGE_HEIGHT = 40;
 
 	/**
 	 * The height (in pixels) extra to allow for the title, etc.
 	 */
-	private static final int POPUP_STATIC_HEIGHT = 110;
+	protected static final int POPUP_STATIC_HEIGHT = 110;
 
 	/**
 	 * The maximum height (in pixels) that the popup window should get to
 	 */
-	private static final int POPUP_MAX_HEIGHT = getScreenHeight();
+	protected static final int POPUP_MAX_HEIGHT = getScreenHeight();
 
 	/**
 	 * Value returned from
 	 * {@link BrowserPopupHablarNotifier#createToasterWindow(int, int, String)}
 	 * if the opening fails
 	 */
-	private static final int CREATE_TOASTER_WINDOW_FAILURE = 0;
+	protected static final int CREATE_TOASTER_WINDOW_FAILURE = 0;
 
 	/**
 	 * Value returned from
 	 * {@link BrowserPopupHablarNotifier#createToasterWindow(int, int, String)}
 	 * if the window is already open
 	 */
-	private static final int CREATE_TOASTER_WINDOW_ALREDY_OPEN = 1;
+	protected static final int CREATE_TOASTER_WINDOW_ALREDY_OPEN = 1;
 
 	/**
 	 * Value returned from
 	 * {@link BrowserPopupHablarNotifier#createToasterWindow(int, int, String)}
 	 * if a new window is successfully opened
 	 */
-	private static final int CREATE_TOASTER_WINDOW_NEWLY_OPENED = 2;
+	protected static final int CREATE_TOASTER_WINDOW_NEWLY_OPENED = 2;
 
 	/**
 	 * This is used to populate the popup when it's created. It can also be
@@ -93,7 +93,7 @@ public class BrowserPopupHablarNotifier implements HablarNotifier {
 	/**
 	 * A counter of the number of messages in the current popup window
 	 */
-	private int messageCount;
+	protected int messageCount;
 
 	/**
 	 * Construct a new {@link BrowserPopupHablarNotifier}.
@@ -136,7 +136,7 @@ public class BrowserPopupHablarNotifier implements HablarNotifier {
 	 * @param userMessage
 	 *            the message
 	 */
-	private void addMessage(final String userMessage) {
+	protected void addMessage(final String userMessage) {
 		final JavaScriptObject newMessage = addMessageNative(userMessage);
 
 		if (newMessage != null) {
@@ -166,7 +166,7 @@ public class BrowserPopupHablarNotifier implements HablarNotifier {
 	 * @return the <code>div</code> element
 	 */
 	//@formatter:off
-	private native JavaScriptObject addMessageNative(final String userMessage) /*-{
+	protected native JavaScriptObject addMessageNative(final String userMessage) /*-{
 		if(!$wnd.toasterWindow) {
 			return null;
 		}
@@ -228,7 +228,7 @@ public class BrowserPopupHablarNotifier implements HablarNotifier {
 			// one browser instance
 			var windowHandle = "chatNotifierPopup" + Math.floor(Math.random() * 1000000);
 			
-			$wnd.toasterWindow = $wnd.open("", windowHandle, "status=no,toolbar=no,location=yes,menubar=no,directories=no,resizable=yes,width="+width+",height="+height+",left="+left+",top="+top+",alwaysRaised=yes,scrollbars=yes");
+			$wnd.toasterWindow = $wnd.open(null, windowHandle, "status=no,toolbar=no,location=yes,menubar=no,directories=no,resizable=yes,width="+width+",height="+height+",left="+left+",top="+top+",alwaysRaised=yes,scrollbars=yes");
 			
 			if($wnd.toasterWindow == null) {
 				// Popups must be blocked :(
@@ -253,7 +253,7 @@ public class BrowserPopupHablarNotifier implements HablarNotifier {
 	/**
 	 * Removes all messages from the popup window and closes it.
 	 */
-	private void hideToasterWindow() {
+	protected void hideToasterWindow() {
 		hideToasterWindowNative();
 		messageCount = 0;
 	}
@@ -305,7 +305,7 @@ public class BrowserPopupHablarNotifier implements HablarNotifier {
 	 *         <code>false</code> otherwise
 	 */
 	//@formatter:off
-	private native boolean removeMessageNative(final JavaScriptObject messageDiv) /*-{
+	protected native boolean removeMessageNative(final JavaScriptObject messageDiv) /*-{
 		var container = $wnd.toasterWindow.document.getElementById("notificationContainer");
 		var element;
 		
@@ -324,7 +324,7 @@ public class BrowserPopupHablarNotifier implements HablarNotifier {
 	/**
 	 * Resizes and repositions the popup window
 	 */
-	private void resizePopupWindow() {
+	protected void resizePopupWindow() {
 		int newSize = messageCount * POPUP_MESSAGE_HEIGHT + POPUP_STATIC_HEIGHT;
 
 		if (newSize > POPUP_MAX_HEIGHT) {
