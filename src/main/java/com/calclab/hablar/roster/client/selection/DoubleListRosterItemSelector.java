@@ -21,12 +21,12 @@ public class DoubleListRosterItemSelector implements RosterItemSelector {
 
 	private DoubleList selectionList;
 	private final AvatarProviderRegistry registry;
-	
+
 	public DoubleListRosterItemSelector(DoubleList selectionList, final AvatarProviderRegistry registry) {
 		this.selectionList = selectionList;
-			
+
 		this.registry = registry;
-		
+
 		selectionList.setAvailableLabelText(RosterMessages.msg.availableUsersLabelText());
 		selectionList.setSelectedLabelText(RosterMessages.msg.selectedUsersLabelText());
 		selectionList.setSelectAllTooltip(RosterMessages.msg.selectAllTooltip());
@@ -37,20 +37,27 @@ public class DoubleListRosterItemSelector implements RosterItemSelector {
 
 	@Override
 	public void addRosterItem(RosterItem rosterItem) {
-		
-		RosterItemWidget widget = new RosterItemWidget("selection", rosterItem);
-		
-		AvatarPresenter presenter = new ZoomableAvatarPresenter(widget.getAvatar(), registry.getFromMeta());
-		presenter.setJid(rosterItem.getJID());
-		
-		widget.setMenuVisible(false);
-		RosterItemSelectable selectable = new RosterItemSelectable(rosterItem, widget);
-		selectionList.add(selectable);
+		addRosterItem(rosterItem, false);
 	}
 
 	@Override
 	public void addSelectedRosterItem(RosterItem rosterItem) {
-		addRosterItem(rosterItem);
+		addRosterItem(rosterItem, true);
+	}
+
+	private void addRosterItem(final RosterItem rosterItem, final boolean selected) {
+		RosterItemWidget widget = new RosterItemWidget("selection", rosterItem);
+
+		AvatarPresenter presenter = new ZoomableAvatarPresenter(widget.getAvatar(), registry.getFromMeta());
+		presenter.setJid(rosterItem.getJID());
+
+		widget.setMenuVisible(false);
+		RosterItemSelectable selectable = new RosterItemSelectable(rosterItem, widget);
+		if (selected) {
+			selectionList.addSelected(selectable);
+		} else {
+			selectionList.add(selectable);
+		}
 	}
 
 	@Override
