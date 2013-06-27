@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.calclab.emite.core.client.events.MessageEvent;
 import com.calclab.emite.core.client.events.MessageHandler;
+import com.calclab.emite.core.client.events.StateChangedEvent;
+import com.calclab.emite.core.client.events.StateChangedHandler;
 import com.calclab.emite.core.client.xmpp.session.XmppSession;
 import com.calclab.emite.core.client.xmpp.stanzas.Message;
 import com.calclab.emite.im.client.chat.ChatStates;
@@ -13,6 +15,7 @@ import com.calclab.emite.xep.delay.client.Delay;
 import com.calclab.emite.xep.delay.client.DelayHelper;
 import com.calclab.emite.xep.muc.client.Occupant;
 import com.calclab.emite.xep.muc.client.Room;
+import com.calclab.emite.xep.muc.client.RoomManager;
 import com.calclab.hablar.chat.client.ui.ChatMessage;
 import com.calclab.hablar.chat.client.ui.ChatPresenter;
 import com.calclab.hablar.chat.client.ui.ColorHelper;
@@ -31,20 +34,40 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.user.client.Timer;
 
 public class RoomPresenter extends ChatPresenter implements RoomPage {
+	private enum ConnectedState {
+		never,
+		hasConnected,
+		hasReconnected
+	}
+	
 	public static final String TYPE = "Room";
 	public static final String ROOM_MESSAGE = "RoomMessage";
 	private static int id = 0;
-
+	
+	/**
+	 * A state flag which is used to determine if this chat has connected at some point in the past.
+	 * If this flag is reconnected then a number of informational messages will be suppressed
+	 */
+	private ConnectedState connectedState;
+	
+	private boolean suppressInfoMessages;
+	
+	private Timer suppressMessagesTimer;
+	
 	private final Room room;
 	
 	private final AvatarConfig avatarConfig;
 
 	public RoomPresenter(final XmppSession session, final XmppRoster roster, final HablarEventBus eventBus, final Room room, final RoomDisplay display,
-			final AvatarProviderRegistry registry) {
+			final AvatarProviderRegistry registry, final RoomManager roomManager) {
 		super(TYPE, "" + ++id, eventBus, room, display, registry);
 		this.room = room;
+		connectedState = ConnectedState.never;
+		suppressInfoMessages = false;
+		
 		display.setId(getId());
 		
 		this.avatarConfig = registry.getFromMeta();
@@ -80,6 +103,11 @@ public class RoomPresenter extends ChatPresenter implements RoomPage {
 					}
 				} else {
 					from = message.getFrom().getResource();
+				}
+				
+				// If we are suppressing server messages
+				if(suppressInfoMessages && Empty.is(from)) {
+					return;
 				}
 
 				final Delay delay = DelayHelper.getDelay(message);
@@ -123,6 +151,35 @@ public class RoomPresenter extends ChatPresenter implements RoomPage {
 					event.stopPropagation();
 					event.preventDefault();
 					sendMessage(room, display);
+				}
+			}
+		});
+		room.addChatStateChangedHandler(true, new StateChangedHandler() {
+			@Override
+			public void onStateChanged(StateChangedEvent event) {
+				if(event.is(ChatStates.ready)) {
+					if(connectedState.equals(ConnectedState.never)) {
+						connectedState = ConnectedState.hasConnected;
+					} else {
+						connectedState = ConnectedState.hasReconnected;
+						
+						suppressInfoMessages = true;
+						
+						if(suppressMessagesTimer != null) {
+							suppressMessagesTimer.cancel();
+						}
+						
+						suppressMessagesTimer = new Timer() {
+							@Override
+							public void run() {
+								suppressInfoMessages = false;
+								suppressMessagesTimer = null;
+							}
+						};
+						
+						// TODO: Un-hardcode this time
+						suppressMessagesTimer.schedule(60000);
+					}
 				}
 			}
 		});
