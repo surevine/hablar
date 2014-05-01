@@ -94,7 +94,7 @@ public class HablarRoomManager {
 		}, new RoomPresenterFactory() {
 			@Override
 			public RoomPresenter create(final HablarEventBus eventBus, final Room room, final RoomDisplay display) {
-				return new RoomPresenter(session, roster, eventBus, room, display, registry, rooms);
+				return new RoomPresenter(session, roster, eventBus, room, display, registry);
 			}
 		}, registry, roster);
 	}

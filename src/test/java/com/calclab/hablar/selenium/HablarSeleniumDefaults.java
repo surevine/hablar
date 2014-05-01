@@ -1,7 +1,5 @@
 package com.calclab.hablar.selenium;
 
-import java.awt.Point;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;

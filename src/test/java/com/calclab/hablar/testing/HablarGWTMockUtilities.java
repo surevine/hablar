@@ -21,7 +21,6 @@ import com.google.gwt.core.client.GWTBridge;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Defangs {@link GWT#create(Class)} to allow unit tests to mock out Widgets and

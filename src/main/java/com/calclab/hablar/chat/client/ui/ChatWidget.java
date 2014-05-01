@@ -2,8 +2,6 @@ package com.calclab.hablar.chat.client.ui;
 
 import static com.google.gwt.dom.client.Style.Unit.PX;
 
-import java.util.List;
-
 import com.calclab.hablar.core.client.avatars.AvatarDisplay;
 import com.calclab.hablar.core.client.avatars.AvatarWidget;
 import com.calclab.hablar.core.client.ui.actions.ActionWidget;

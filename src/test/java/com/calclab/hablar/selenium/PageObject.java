@@ -3,7 +3,6 @@ package com.calclab.hablar.selenium;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ByIdOrName;
 import org.testng.Assert;
 

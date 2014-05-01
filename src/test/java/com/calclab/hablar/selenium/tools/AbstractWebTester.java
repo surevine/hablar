@@ -1,14 +1,11 @@
 package com.calclab.hablar.selenium.tools;
 
-import java.awt.Point;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import com.google.gwt.user.client.ui.UIObject;
-import com.thoughtworks.selenium.Selenium;
 
 public abstract class AbstractWebTester {
     private final WebDriver driver;

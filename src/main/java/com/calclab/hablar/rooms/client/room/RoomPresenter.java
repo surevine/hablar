@@ -15,7 +15,6 @@ import com.calclab.emite.xep.delay.client.Delay;
 import com.calclab.emite.xep.delay.client.DelayHelper;
 import com.calclab.emite.xep.muc.client.Occupant;
 import com.calclab.emite.xep.muc.client.Room;
-import com.calclab.emite.xep.muc.client.RoomManager;
 import com.calclab.hablar.chat.client.ui.ChatMessage;
 import com.calclab.hablar.chat.client.ui.ChatPresenter;
 import com.calclab.hablar.chat.client.ui.ColorHelper;
@@ -62,7 +61,7 @@ public class RoomPresenter extends ChatPresenter implements RoomPage {
 	private final AvatarConfig avatarConfig;
 
 	public RoomPresenter(final XmppSession session, final XmppRoster roster, final HablarEventBus eventBus, final Room room, final RoomDisplay display,
-			final AvatarProviderRegistry registry, final RoomManager roomManager) {
+			final AvatarProviderRegistry registry) {
 		super(TYPE, "" + ++id, eventBus, room, display, registry);
 		this.room = room;
 		connectedState = ConnectedState.never;

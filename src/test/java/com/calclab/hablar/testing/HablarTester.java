@@ -14,7 +14,6 @@ import com.calclab.hablar.core.client.page.PagePresenter.Visibility;
 import com.calclab.hablar.core.client.ui.menu.Menu;
 import com.calclab.hablar.core.client.ui.menu.MenuDisplay;
 import com.calclab.hablar.core.mock.HablarMocks;
-import com.calclab.hablar.rooms.client.RoomMessages;
 import com.calclab.hablar.selenium.tools.I18nHelper;
 import com.calclab.hablar.testing.display.DisplayMocker;
 import com.google.gwt.event.shared.GwtEvent;
