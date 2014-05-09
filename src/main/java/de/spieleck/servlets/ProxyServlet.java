@@ -182,7 +182,8 @@ public class ProxyServlet extends HttpServlet {
 			out.write(CRLF.getBytes());
 			// Copy post data
 			final InputStream inr = req.getInputStream();
-			copyStream(inr, out);
+			long req_content_len = copyStream(inr, out);
+			log(">> Copied " + req_content_len + " from request");
 			out.flush();
 			log("Remote request finished. Reading answer.");
 
@@ -194,7 +195,8 @@ public class ProxyServlet extends HttpServlet {
 				log("+ copyStream");
 				// if ( debugFlag ) res.setContentType("text/plain");
 				out = res.getOutputStream();
-				copyStream(in, out);
+				long resp_content_len = copyStream(in, out);
+				log("<< Copied " + resp_content_len + " from response");
 			} else {
 				log("- copyStream");
 			}
@@ -286,6 +288,7 @@ public class ProxyServlet extends HttpServlet {
 							retval = cLen > 0;
 							res.setContentLength(cLen);
 						} catch (final NumberFormatException ignore) {
+							log("Exception reading content-length: <" + value + ">");
 						}
 					}
 					// Generically treat unknown headers
@@ -334,12 +337,15 @@ public class ProxyServlet extends HttpServlet {
 	 * Copy a file from in to out. Sub-classes can override this in order to do
 	 * filtering of some sort.
 	 */
-	public void copyStream(final InputStream in, final OutputStream out) throws IOException {
+	public long copyStream(final InputStream in, final OutputStream out) throws IOException {
 		final BufferedInputStream bin = new BufferedInputStream(in);
+		long count = 0;
 		int b;
 		while ((b = bin.read()) != -1) {
 			out.write(b);
+			++count;
 		}
+		return count;
 	}
 
 	/**

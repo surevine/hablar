@@ -47,7 +47,7 @@ public class ConvertToGroupChatPresenter extends EditRoomPresenter {
 
 		final XmppURI currentJid = session.getCurrentUserURI().getJID();
 		final String roomName = display.getRoomName().getValue();
-		final XmppURI roomUri = XmppURI.uri(roomName, roomsService, currentJid.getNode());
+		XmppURI roomUri = XmppURI.uri_or_null(roomName, roomsService, currentJid.getNode()); // DEVATTN: Could be null if the roomsService is illegal.
 
 		final ChatProperties newProperties = new ChatProperties(roomUri, chat.getProperties());
 

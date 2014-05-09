@@ -36,7 +36,7 @@ public abstract class OpenRoomPresenter extends EditRoomPresenter {
 	protected void onAccept() {
 		final XmppURI user = session.getCurrentUserURI();
 		final String roomName = RoomName.encode(display.getRoomName().getValue(), user.getResource());
-		final XmppURI roomUri = XmppURI.uri(roomName, roomsService, user.getNode());
+		XmppURI roomUri = XmppURI.uri_or_null(roomName, roomsService, user.getNode()); // DEVATTN: null if roomsService illegal.
 		final Room room = (Room) roomManager.open(roomUri);
 
 		room.addChatStateChangedHandler(true, new StateChangedHandler() {

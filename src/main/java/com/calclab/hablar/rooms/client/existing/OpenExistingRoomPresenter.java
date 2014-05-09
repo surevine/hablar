@@ -47,7 +47,7 @@ public class OpenExistingRoomPresenter extends PagePresenter<OpenExistingRoomDis
 	private void onAccept() {
 		final XmppURI roomUri = display.getSelectedRoom();
 		final XmppURI user = session.getCurrentUserURI();
-		final XmppURI openRoomUri = XmppURI.uri(roomUri.getNode(), roomUri.getHost(), user.getNode());
+		XmppURI openRoomUri = XmppURI.uri_or_null(roomUri.getNode(), roomUri.getHost(), user.getNode());
 		roomManager.open(openRoomUri);
 	}
 

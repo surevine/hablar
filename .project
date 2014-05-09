@@ -3,6 +3,7 @@
 	<name>hablar</name>
 	<comment></comment>
 	<projects>
+		<project>emite</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

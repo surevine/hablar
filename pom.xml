@@ -7,7 +7,7 @@
 	<groupId>com.calclab</groupId>
 	<artifactId>hablar</artifactId>
 	<packaging>war</packaging>
-	<version>surevine-69-SNAPSHOT</version>
+	<version>surevine-71-SNAPSHOT</version>
 	<name>Hablar</name>
 
 	<properties>
@@ -19,7 +19,7 @@
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- TODO: Fix tests! -->
-		<maven.test.skip>true</maven.test.skip>
+		<maven.test.skip>false</maven.test.skip>
 		<emite.version>${project.version}</emite.version>
 	</properties>
 	<repositories>

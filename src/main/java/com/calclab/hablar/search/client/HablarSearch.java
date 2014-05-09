@@ -30,7 +30,7 @@ public class HablarSearch {
 	public HablarSearch(final Hablar hablar, final SearchConfig searchConfig, final XmppSession session, final XmppRoster roster,
 			final ChatManager chatManager, final SearchManager searchManager, final AvatarProviderRegistry registry) {
 
-		searchManager.setHost(XmppURI.uri(null, searchConfig.searchService, null));
+		searchManager.setHost(XmppURI.uri_or_null(null, searchConfig.searchService, null));
 		final Visibility visible = searchConfig.searchOnRoster ? Visibility.hidden : Visibility.notFocused;
 		final SearchPage searchPage = new SearchPage(session, searchManager, visible, searchConfig.searchCloseable, searchConfig.queryFactory,
 				hablar.getEventBus(), new SearchWidget(), registry);
