@@ -6,8 +6,11 @@ import java.util.HashMap;
 import com.calclab.emite.core.client.events.ChangedEvent.ChangeTypes;
 import com.calclab.emite.core.client.events.MessageEvent;
 import com.calclab.emite.core.client.events.MessageHandler;
+import com.calclab.emite.core.client.events.StateChangedEvent;
+import com.calclab.emite.core.client.events.StateChangedHandler;
 import com.calclab.emite.core.client.xmpp.session.XmppSession;
 import com.calclab.emite.core.client.xmpp.stanzas.XmppURI;
+import com.calclab.emite.im.client.chat.ChatStates;
 import com.calclab.emite.im.client.roster.RosterItem;
 import com.calclab.emite.im.client.roster.XmppRoster;
 import com.calclab.emite.xep.muc.client.Occupant;
@@ -23,6 +26,7 @@ import com.calclab.hablar.chat.client.ui.ChatMessage;
 import com.calclab.hablar.rooms.client.RoomMessages;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Timer;
+import java.util.Map.Entry;
 
 public class RoomNotificationPresenter {
 
@@ -44,6 +48,23 @@ public class RoomNotificationPresenter {
 		me = session.getCurrentUserURI().getNode();
 
 		occupantTracker = new HashMap<XmppURI, OccupantStatus>();
+		
+		// Cancel all the notification timers on room close
+		room.addChatStateChangedHandler(false, new StateChangedHandler() {
+			
+			@Override
+			public void onStateChanged(StateChangedEvent event) {
+				if(event.is(ChatStates.locked)) {
+					for(final Entry<XmppURI, OccupantStatus> entry : occupantTracker.entrySet()) {
+						OccupantStatus status = entry.getValue();
+						if(status.flushTimer != null) {
+							status.flushTimer.cancel();
+						}
+					}
+					occupantTracker.clear();
+				}
+			}
+		});
 		
 		room.addOccupantChangedHandler(new OccupantChangedHandler() {
 

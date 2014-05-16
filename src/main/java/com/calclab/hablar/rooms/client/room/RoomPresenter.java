@@ -179,6 +179,10 @@ public class RoomPresenter extends ChatPresenter implements RoomPage {
 						// TODO: Un-hardcode this time
 						suppressMessagesTimer.schedule(60000);
 					}
+				} else if (event.is(ChatStates.locked)) {
+					if(suppressMessagesTimer != null) {
+						suppressMessagesTimer.cancel();
+					}
 				}
 			}
 		});
